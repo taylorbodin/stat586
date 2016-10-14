@@ -132,7 +132,7 @@
 \begin{problem}{2.41} %TODO
  \item
    \begin{enumerate}[a.]
-    \ item %A. 
+    \item %A. 
       \begin{align*}
         \textrm{A} \cap \textrm{7,8,9,10,J,Q,K} &= 2 \binom{52}{4} \binom{51}{28} \\
         \textrm{Face Card, 10} \cap \textrm{8 or 9} &= 2 \binom{52}{16} \binom{51}{8} \\
@@ -187,29 +187,28 @@
 
 \begin{problem}{2.47}
 \item
+    \begin{table}[!htpb]
+      \centering
+      \caption{Known Probabilities for 2.47}
+        \label{probs_2_4}
+        \begin{tabular}{lll}
+          $P(0_{rx}|0_{tx}) = .9$  & $P(0_{rx}|1_{tx}) = .04$ & $P(0_{tx}) = .5$ \\
+          $P(1_{rx}|0_{tx}) = .01$ & $P(1_{rx}|1_{tx}) = .8$  & $P(1_{tx}) = .5$ \\
+          $P(E_{rx}|0_{tx}) = .09$ & $P(E_{rx}|1_{tx}) = .16$ & $P(E_{tx}) = 0$ 
+        \end{tabular}
+    \end{table}
   \begin{enumerate}[a.]
-    \item %Set Up 
-      \begin{table}[!htpb]
-        \centering
-          \caption{Known Probabilities for 2.47}
-          \label{probs_2_4}
-            \begin{tabular}{lll}
-              $P(0_{rx}|0_{tx}) = .9$  & $P(0_{rx}|1_{tx}) = .04$ & $P(0_{tx}) = .5$ \\
-              $P(1_{rx}|0_{tx}) = .01$ & $P(1_{rx}|1_{tx}) = .8$  & $P(1_{tx}) = .5$ \\
-              $P(E_{rx}|0_{tx}) = .09$ & $P(E_{rx}|1_{tx}) = .16$ & $P(E_{tx}) = 0$ 
-            \end{tabular}
-      \end{table}
     \item %A
-      $P(E_{rx}) = P(E_{rx}|0_{tx})P(0_{tx}) + P(E_{rx}|1_{tx}) \approx .1250$
+            $P(E_{rx}) = P(E_{rx}|0_{tx})P(0_{tx}) + P(E_{rx}|1_{tx})P(1_{tx}) \approx .1250$
     \item %B
       \begin{align*}
-        P(0_{tx}|E_{rx}) &= \frac{0_{tx} \cup E_{rx}}{P(E_{rx})} \\
-        0_{tx} \cup E_{rx} &= P(E_{rx}|0_{tx})P(0_{tx}) \approx .0450 \\
-        P(0_{tx}|E_{rx}) &\approx \frac{.0450}{.1250} \approx .3600 \\
+        P(0_{tx}|E_{rx}) &= \frac{0_{tx} \cap E_{rx}}{P(E_{rx})} \\
+        0_{tx} \cap E_{rx} &= P(E_{rx}|0_{tx})P(0_{tx}) \approx .0450 \\
+        P(0_{tx}|E_{rx}) &\approx \frac{.0450}{.1250} \approx .3600
       \end{align*}
     \item %C
       \begin{align*}
-        P(P(1_{rx}|0_{tx})\cup P(0_{rx}|1_{tx})) &= P(1_{rx}|0_{tx}) + P(0_{rx}|1_{tx}) & & \textrm{Since these are mutually exclusive} \\
+        P(P(1_{rx}|0_{tx})\cup P(0_{rx}|1_{tx})) &= P(1_{rx}|0_{tx}) + P(0_{rx}|1_{tx}) & & \textrm{Mutually exclusive} \\
         P(P(1_{rx}|0_{tx})\cup P(0_{rx}|1_{tx})) &= .01 + .04 = .05 
       \end{align*}
   \end{enumerate}
@@ -233,7 +232,7 @@
 \item
   \begin{enumerate}[a.]
     \item %A
-      $P(x=5) = (1-\frac{1}{52})^{5-1} \frac{1}{52} \approx /num{1.779e-2}$
+      $P(x=5) = (1-\frac{1}{52})^{5-1} \frac{1}{52} \approx \num{1.779e-2}$
     \item %B
       $P(x\geq5) = (1-\frac{1}{52})^{5-1} \approx .9253$
     \item %C
@@ -284,62 +283,115 @@
         (p+q)^n &= \sum_{k=0}^{n} \binom{n}{k}p^kq^{n-k} & & \textrm{let } q = 1-p \\
         (p+1-p)^n &= \sum_{k=0}^{n} \binom{n}{k}p^k(1-p)^{n-k} \\
         1 &= \sum_{k=0}^{n} \binom{n}{k}p^k(1-p)^{n-k} 
-      \end{align*}
+    \end{align*}
       \item %C
         The binomial distribution
   \end{enumerate}
 \end{problem}
 
-\begin{problem}{2.59} %TODO
+\begin{problem}{2.59} 
+  \item %A.
+    \begin{figure}[htpb]
+      \centering
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{problem_2_59.eps}
+        \caption{Problem 2.59, Binomial vs Poisson}
+    \end{figure}
+\item %B.
+  Figure 1. shows that the Poisson distribution is not a good approximation
+  for the binomial distribution for such a small number of experiments and a
+  relatively high likelihood of success.
+\end{problem} 
+
+\begin{problem}{2.61}
 \item
   \begin{enumerate}[a.]
-    \item %A.
-      \begin{figure}[htpb]
-        \centering
-        \includegraphics[scale=1]{fig_2_49_a.eps}
-        \caption{Problem 2.59, PMF of the Binomial Distribution}
-      \end{figure}
-     \item %B.
-      \begin{figure}[htpb]
-        \centering
-        \includegraphics[scale=1]{fig_2_49_b.eps}
-        \caption{Problem 2.59, PMF of the Poisson Distribution}
-       \end{figure}
-    \item %C.
-      Some stuff about if it is or is not a good fit
-  \end{enumerate} 
-\end{problem} 
-\ end{problem}
-  
-\ begin{problem}{2.61} %TODO
-\ item
+    \item %A
+      $P(n=1,w=1) = \frac{1}{\binom{50}{6}} = \frac{1}{15890700} \approx \num{6.293e-8}$
+    \item %B
+      $P(n=\num{6e6},w=4) = \binom{\num{6e6}}{4} (\num{6.293e-8})^4 (1-\num{6.293e-8})^{\num{6e6}-4} \approx \num{5.806e-4}$
+    \item %C
+      $P(n=\num{6e6},w=0) = \binom{\num{6e6}}{0} (\num{6.293e-8})^0 (1-\num{6.293e-8})^{\num{6e6}-0} \approx .6855$
+    \item %D
+      $P(n=\num{6e6},w=4) 
+      \approx \frac{(\num{6e6}\times\num{6.293e-8})^4}{4!}e^{\num{6e6}\times\num{6.293e-8}} 
+      \approx \num{5.807e-4}$ 
+    \item %E
+      $P(n=\num{6e6},w=0) \approx .6855$
+    \item %F
+      With the number of trials so high and the probability of success so low,
+      the Poisson is a great approximation for the binomial in this case. 
+  \end{enumerate}
 \end{problem}
 
-\begin{problem}{2.63} %TODO
+\begin{problem}{2.63} 
 \item
+  \begin{enumerate}[a.]
+    \item %A
+      $P(n=10,s=1) = \binom{10}{1}(\frac{1}{10})^1(1-\frac{1}{10})^{10-1} \approx .3874$
+    \item %B
+      $P(n=10,s=0) = \binom{10}{0}(\frac{1}{10})^0(1-\frac{1}{10})^{10-0} \approx .3487$ \\
+      $P(n=10,s\geq2) = 1 - (P(n=10,s=0) + P(n=10,s=1)) \approx .2639$
+  \end{enumerate}
 \end{problem}
 
-\begin{problem}{2.65} %TODO
+\begin{problem}{2.65}
 \item
+  \begin{enumerate}[a.]
+    \item %A
+     $P(r) = \frac{18}{18+18+2} \approx .4737$
+   \item %B
+     $P_N(k) = .5263^{k-1}(.4737)$
+   \item %C
+     $P_M(k) = \binom{k}{2}(.5263)^{k-2}(.4737)^2$
+  \end{enumerate}
 \end{problem}
 
-\begin{problem}{2.67} %TODO
+\newpage
+\begin{problem}{2.67}
 \item
+  \begin{align*}
+    P(K = k) &= \sum_{m=0}^k P(M=m)P(N=k-m) \\
+    &= \sum_{m=0}^k \left( \frac{\lambda_B^m e^{-\lambda_B}}{m!} \right)
+    \left( \frac{\lambda_A^{k-m} e^{-\lambda_A}}{(k-m)!} \right) \\
+    &= \sum_{m=0}^k \left( \frac{\lambda_B^m \lambda_A^{k-m} e^{-(\lambda_A+\lambda_B)}}{m!(k-m)!} \right) \\
+    &= \frac{e^{-(\lambda_A \lambda_B}}{k!} \sum_{m=0}^{k} \frac{k!}{m!(k-m)!}\lambda_B^m \lambda_A^{k-m} \\
+    &= (\lambda_A + \lambda_B)^k \frac{e^{-(\lambda_A + \lambda_B)}}{k!} & & \textrm{by the binomial expansion} \\
+    &= \frac{\lambda_C^k e^{-\lambda_C}}{k!} & & \textrm{let } \lambda_A + \lambda_B = \lambda_C
+  \end{align*}
 \end{problem}
 
-\begin{problem}{2.81} %TODO
+\begin{problem}{2.81} 
 \item
-%  \lstinputlisting{problem_2_77.m} %}}}
+  \begin{enumerate}[a.]
+    \item %A
+      \lstinputlisting{problem_2_81.m}
+    \item %B
+      \verb|problem_2_81(384,15)| $ = \num{3.3744e26}$ \\
+      \verb|nchoosek(384,15)| $ = \num{3.3744e26} $ 
+  \end{enumerate}
 \end{problem}
 
-
-\begin{problem}{2.83} %TODO
+\newpage
+\begin{problem}{2.83} 
 \item
-%  \begin{figure}[htpb]
-%   \centering
-%    \includegraphics[scale=1]{fig_2_79.eps}
-%    \caption{Problem 2.79, Simulation of the Negative Binomial Distribution}
-%  \end{figure}%}}}
+  \begin{enumerate}[a.]
+    \item %A
+      \lstinputlisting{problem_2_83.m}
+    \item %B
+            For 2 sets of die:
+      \begin{itemize}
+        \item $P(\textrm{Offense } = 2, \textrm{Defense }= 0) = 0.2284$
+        \item $P(\textrm{Offense } = 1, \textrm{Defense }= 1) = 0.3234$
+        \item $P(\textrm{Offense } = 0, \textrm{Defense }= 2) = 0.4483$
+      \end{itemize}
+     \item %C
+            For 3 sets of die:
+      \begin{itemize}
+        \item $P(\textrm{Offense } = 2, \textrm{Defense }= 0) = 0.2304$
+        \item $P(\textrm{Offense } = 1, \textrm{Defense }= 1) = 0.2929$
+        \item $P(\textrm{Offense } = 0, \textrm{Defense }= 2) = 0.4767$
+      \end{itemize}
+  \end{enumerate}
 \end{problem}
 
 \end{document}
