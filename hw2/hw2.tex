@@ -84,15 +84,13 @@
 \item
   \begin{enumerate}[a.]
     \item %A
-      $P(\textrm{1 Heart}) =  \frac{\binom{4}{1} \binom{48}{12}}{\binom{52}{13}} = \frac{9139}{20825} \approx .4388$
+      $P(\textrm{1 Heart}) =  \frac{\binom{13}{1} \binom{39}{12}}{\binom{52}{13}} = \approx \num{8.006e-2}$
     \item %B
       $P(\textrm{7 or more of one suit}) 
-      =  \frac{\binom{4}{1} \binom{13}{7} \binom{48}{12}}{\binom{52}{13}}
-      = \frac{56628}{643195} \approx .0880$
+      =  \frac{\binom{13}{7} \binom{39}{5}}{\binom{52}{13}} \approx \num{1.556e-3}$
     \item %C
       $P(\textrm{Void of one suit}) 
-      =  \frac{\binom{4}{1} \binom{39}{13}}{\binom{52}{13}} 
-      = \frac{17063919}{333515525} \approx .05116$
+      = \frac{\binom{13}{0} \binom{39}{13}}{\binom{52}{13}} \approx \num{1.279e-2}$
   \end{enumerate}
 \end{problem}
 
@@ -116,38 +114,47 @@
   \end{enumerate}
 \end{problem}
 
-\begin{problem}{2.39} %TODO
+\begin{problem}{2.39} 
 \item
   \begin{enumerate}[a.]
     \item %A
       $\frac{\binom{9}{3}}{2^9} = \frac{21}{128}$
     \item %B
-      $\frac{2^9 - (\binom{9}{0} + \binom{9}{1} + \binom{9}{2}}{2^9} 
+      $\frac{2^9 - \left(\binom{9}{0} + \binom{9}{1} + \binom{9}{2}\right)}{2^9} 
       =  \frac{233}{256} \approx .9102$
-    \item %C TODO
-     % $\frac{\binom{9}{3} \binom{6}{2} \binom{4}{1}}{2^9} possibly do the above, minus the sets with T<2 
+    \item %C
+      $\frac{2^9 - \left(\binom{9}{0} + \binom{9}{1} + \binom{9}{2} + \binom{9}{8} + \binom{9}{9}\right)}{2^9} 
+      =  \frac{57}{64} \approx .8906$
   \end{enumerate}
 \end{problem}
 
-\begin{problem}{2.41} %TODO
+\begin{problem}{2.41}
  \item
    \begin{enumerate}[a.]
     \item %A. 
       \begin{align*}
-        \textrm{A} \cap \textrm{7,8,9,10,J,Q,K} &= 2 \binom{52}{4} \binom{51}{28} \\
-        \textrm{Face Card, 10} \cap \textrm{8 or 9} &= 2 \binom{52}{16} \binom{51}{8} \\
-        \textrm{Face Card, 10} \cap \textrm{Face Card, 10} &= 2 \binom{52}{16} \binom{51}{15} \\
-        \textrm{9} \cap \textrm{9} &= \binom{52}{4} \binom{51}{3} \\
-        P(\textrm{Hand} \geq 18) &= \frac{492}{2704}
-       \end{align*}
-    \item %B TODO 
+              P(x = 18) &= 2P(A\cap7) + 2P(10\cap8) + 2P(9\cap9) 
+              = 2\frac{4}{52}\frac{4}{51} + 2\frac{16}{52}\frac{4}{51} + \frac{4}{52}\frac{3}{51} \\
+              P(x = 19) &= 2P(A\cap8) + 2P(10\cap9) 
+              = 2\frac{4}{52}\frac{4}{51} + 2\frac{16}{52}\frac{4}{51} \\
+              P(x = 20) &= 2P(A\cap9) + P(10\cap10) 
+              = 2\frac{4}{52}\frac{4}{51} + 2\frac{16}{52}\frac{15}{51} \\ 
+              P(x = 21) &= 2P(A\cap10) 
+              = 2\frac{4}{52}\frac{16}{51} \\ 
+              P(x \geq 18) &= P(x = 18) + P(x = 19) + P(x = 20) + P(x = 21)
+              = \frac{32}{663} +\frac{4}{39} +\frac{40}{663} +\frac{43}{663} 
+              = \frac{61}{221}
+      \end{align*}
+    \item %B
+      Using the same method as above:
       \begin{align*}
-        \textrm{10 point} \cap \textrm{2,3,4,5,6,7} &= 2 \binom{52}{16} \binom{51}{12} \\
-        \textrm{A} \cap \textrm{A,2,3,4,5,6} &= 2 \binom{52}{4} \binom{51}{23} \\
-        \textrm{6} \cap \textrm{6,7,8,9} &= 2 \binom{52}{4} \binom{51}{15} \\
-        \textrm{7} \cap \textrm{7,8,9} &= \binom{52}{4} \binom{51}{11} \\
-        \textrm{8} \cap \textrm{8,9} &= \binom{52}{4} \binom{51}{7} \\
-        P(\textrm{Hand} \geq 18) &= \frac{492}{2704}
+        P(12) &= \frac{59}{663}\\
+        P(13) &= \frac{64}{663}\\
+        P(14) &= \frac{59}{663}\\
+        P(15) &= \frac{56}{663}\\
+        P(16) &= \frac{1}{13}\\
+        P(17) &= \frac{16}{221}\\
+        P(12 \leq x \geq 17) &= \frac{337}{663}\\
       \end{align*}
   \end{enumerate}
 \end{problem}
@@ -302,6 +309,7 @@
   relatively high likelihood of success.
 \end{problem} 
 
+\newpage
 \begin{problem}{2.61}
 \item
   \begin{enumerate}[a.]
@@ -346,7 +354,6 @@
   \end{enumerate}
 \end{problem}
 
-\newpage
 \begin{problem}{2.67}
 \item
   \begin{align*}
