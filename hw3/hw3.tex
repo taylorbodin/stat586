@@ -197,23 +197,52 @@
   \end{align*}
 \end{problem}
 
-\begin{problem}{3.21} %TODO: Analytical Solution to A, and B
+\begin{problem}{3.21}
 \item
   \begin{enumerate}[a.]
-    \item %A. TODO: Analytical Solution?
-      Using WolframAlpha\textsuperscript{\textregistered}, the value of c was found to be 
+    \item %A.
+      \begin{align*}
+        1 &= c \int_{-\infty}^{\infty} e^{-2x^2 -3x-1)}dx \\
+        &= c \int_{-\infty}^{\infty} e^{-2(x^2 -\frac{3}{2}x-\frac{1}{2})}dx \\
+        &= c \int_{-\infty}^{\infty} e^{-2(x +\frac{3}{4})^2-\frac{3}{4}^2+\frac{1}{2})}dx \\
+        &= ce^{-2\left(-(\frac{3}{4})^2+\frac{1}{2}\right)} \int_{-\infty}^{\infty} e^{-2(x +\frac{3}{4})^2}dx \\
+        &= ce^{\frac{1}{8}} \int_{-\infty}^{\infty} e^{-2(x +\frac{3}{4})^2}dx \\
+      \end{align*}
+    \item %B.
+      Now that the Gaussian is in a more familiar form, $m$ and $\sigma$ can be
+      determined by inspection. \\
+      $m = -\frac{3}{4}, \sigma = \frac{1}{\sqrt{4}}$
+    \item %C.
+      Using $m$ and $\sigma$, one can set $ce^{\frac{1}{8}}= \frac{1}{\sqrt{2\pi\sigma^2}}$.
+      Solving for c,\\
       $\frac{\sqrt{\frac{2}{\pi}}}{\sqrt[8]{e}} \approx .7041$
-    \item %B. TODO calculate m
-      The equation $c = \frac{\sqrt{\frac{2}{\pi}}}{\sqrt[8]{e}}$ was solved to 
-      find that $c \approx .5667$ \\ 
-      To find m, the exponent was factored to
   \end{enumerate}
 \end{problem}
 
 \begin{problem}{3.23} %TODO
 \item
+  \begin{enumerate}[a.]
+    \item %a.
+      $P(x>0) = Q\left(\frac{0-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(2) = \num{2.275e-2}$
+    \item %b.
+      $P(x>2) = Q\left(\frac{2-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(6) = \num{9.866e-10}$
+    \item %c.
+      $P(x<-3) = 1 -Q\left(\frac{-3-(-1)}{\sqrt{\frac{1}{4}}}\right) = 1-Q(-4) = \num{3.2e-5}$
+    \item %d.
+      $P(x<-4) = 1 -Q\left(\frac{-4-(-1)}{\sqrt{\frac{1}{4}}}\right) = 1-Q(-6) = \num{1e-9}$
+    \item %e.
+      $P(|x+1|>3) = P(x<-4 \cup x>2) = P(x>2) + P(x<-4) = \num{1.987e-9}$
+    \item %f.
+      $P(|x+1|<2) = P(-3<x<1) = P(x>-3) - P(x>1) = Q\left(\frac{-3-(-1)}{\sqrt{\frac{1}{4}}}\right)
+      - Q\left(\frac{1-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(-4)-Q(4) = 1-2Q(4) = .9999$
+    \item %g.
+      $P(|x+2|>1) = P(x<-4 \cup x>0) = P(x<-4) + P(x>0) = Q\left(\frac{0-(-1)}{\sqrt{\frac{1}{4}}}\right)
+      + 1 - Q\left(\frac{-4-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(2) + (1 - Q(-6)) = \num{2.275e-2}$
+    \item %h.
+      $P(|x-1|<1) = P(-1<x<3) = P(x>-1) - P(x>3) = Q\left(\frac{-1-(-1)}{\sqrt{\frac{1}{4}}}\right)
+      - Q\left(\frac{3-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(2)-Q(8) = \num{2.275e-2}$
+  \end{enumerate}
 \end{problem}
-\end{document}
 
 \begin{problem}{3.25} %TODO
 \item
