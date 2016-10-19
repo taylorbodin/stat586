@@ -149,10 +149,14 @@
 \item
   \begin{enumerate}[a.]
     \item %A.
-    Solving the equation $1 = \int_{-5}^5 \frac{c}{\sqrt{25-x^2}}dx$ for c
-      yields $c = \frac{1}{\pi}$. \\
-      Substituting c back into the PDF and integrating from -5 to x produces
-      the CDF: $F_X(X) = \frac{2\sin^{-1}(\frac{x}{5})+\pi}{2\pi}$
+      The CDF: $F_X(X) = \frac{2\sin^{-1}(\frac{x}{5})+\pi}{2\pi}$
+      \begin{align*}
+        1 &= \int_{-5}^5 \frac{c}{\sqrt{25-x^2}}dx \\
+        &= c\sin^{-1}\left( \frac{x}{5} \right) + c\frac{\pi}{2}\big|_{-5}^5 \\
+        &= c\left[ \sin^{-1}(1) + \frac{\pi}{2} - \sin^{-1} - \frac{pi}{2} \right] \\
+        &= c\left[ \frac{\pi}{2} - (-\frac{\pi}{2})\right] \\
+        c &= \frac{1}{\pi}
+      \end{align*}
     \item %B.
       $P(X>2) = 1 - F_X(2) = 1 - .6310 = .3690$
     \item %C.
@@ -219,33 +223,43 @@
   \end{enumerate}
 \end{problem}
 
-\begin{problem}{3.23} %TODO
+\begin{problem}{3.23}
 \item
   \begin{enumerate}[a.]
     \item %a.
-      $P(x>0) = Q\left(\frac{0-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(2) = \num{2.275e-2}$
+      $P(x>0) = Q\left(\frac{0-(-1)}{\sqrt{\frac{1}{4}}}\right) \\ = Q(2)$
     \item %b.
-      $P(x>2) = Q\left(\frac{2-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(6) = \num{9.866e-10}$
+      $P(x>2) = Q\left(\frac{2-(-1)}{\sqrt{\frac{1}{4}}}\right) \\ = Q(6)$
     \item %c.
-      $P(x<-3) = 1 -Q\left(\frac{-3-(-1)}{\sqrt{\frac{1}{4}}}\right) = 1-Q(-4) = \num{3.2e-5}$
+      $P(x<-3) = 1 -Q\left(\frac{-3-(-1)}{\sqrt{\frac{1}{4}}}\right) \\ = 1-Q(-4) Q(4)$
     \item %d.
-      $P(x<-4) = 1 -Q\left(\frac{-4-(-1)}{\sqrt{\frac{1}{4}}}\right) = 1-Q(-6) = \num{1e-9}$
+      $P(x<-4) = 1 -Q\left(\frac{-4-(-1)}{\sqrt{\frac{1}{4}}}\right) = 1-Q(-6) \\ = Q(6)$
     \item %e.
-      $P(|x+1|>3) = P(x<-4 \cup x>2) = P(x>2) + P(x<-4) = \num{1.987e-9}$
+      $P(|x+1|>3) = P(x<-4 \cup x>2) = P(x>2) + P(x<-4) \\ = Q(2)+Q(6)$
     \item %f.
       $P(|x+1|<2) = P(-3<x<1) = P(x>-3) - P(x>1) = Q\left(\frac{-3-(-1)}{\sqrt{\frac{1}{4}}}\right)
-      - Q\left(\frac{1-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(-4)-Q(4) = 1-2Q(4) = .9999$
+      - Q\left(\frac{1-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(-4)-Q(4) = 1-2Q(4)$
     \item %g.
       $P(|x+2|>1) = P(x<-4 \cup x>0) = P(x<-4) + P(x>0) = Q\left(\frac{0-(-1)}{\sqrt{\frac{1}{4}}}\right)
-      + 1 - Q\left(\frac{-4-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(2) + (1 - Q(-6)) = \num{2.275e-2}$
+      + 1 - Q\left(\frac{-4-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(2) + (1 - Q(-6)) = Q(2)+Q(6)$
     \item %h.
       $P(|x-1|<1) = P(-1<x<3) = P(x>-1) - P(x>3) = Q\left(\frac{-1-(-1)}{\sqrt{\frac{1}{4}}}\right)
-      - Q\left(\frac{3-(-1)}{\sqrt{\frac{1}{4}}}\right) = Q(2)-Q(8) = \num{2.275e-2}$
+      - Q\left(\frac{3-(-1)}{\sqrt{\frac{1}{4}}}\right) \\ = Q(2)-Q(8)$
   \end{enumerate}
 \end{problem}
 
 \begin{problem}{3.25} %TODO
 \item
+  \begin{align*}
+    P(v \geq \SI{10}{\micro\volt})
+      &= Q\left(\frac{\SI{10}{\micro\volt}-\mu}{\sigma}\right) = .4 \\
+    P(v \leq \SI{-10}{\micro\volt}) 
+      &= Q\left(\frac{\SI{10}{\micro\volt}+\mu}{\sigma}\right) = .02 \\
+    Q(.253) &= .4 \\
+    Q(2.053) &= .02 & & \textrm{Two equations, two unknowns} \\
+  \end{align*}
+    $\mu = \SI{7.806}{\micro\volt}$ \\
+    $\sigma^2 = \SI{7.522e-2}{\nano\watt}$
 \end{problem}
 
 \begin{problem}{3.27} %TODO
