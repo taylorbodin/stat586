@@ -294,7 +294,7 @@
       \end{align*}
     \item %B.
       \begin{align*}
-        $P(-1<w<2) &= \int_{-1}^2 e^{-2|w|}dw \\
+        P(-1<w<2) &= \int_{-1}^2 e^{-2|w|}dw \\
         &= \int_{0}^1 e^{-2w}dw + \int_{0}^2 e^{-2w}dw \\
         &= \left[ -\frac{1}{2}e^{-2} + \frac{1}{2}e^{0} \right] + 
           \left[ -\frac{1}{2}e^{-4} + \frac{1}{2}e^{0} \right] \\
@@ -302,7 +302,7 @@
       \end{align*}
     \item %C.
       \begin{align*}
-        $P(w>0|-1<w<2) &= \frac{P(0<w<2)}{P(-1<w<2)} \\ 
+        P(w>0|-1<w<2) &= \frac{P(0<w<2)}{P(-1<w<2)} \\ 
         &= \frac{\int_{0}^2 e^{-2|w|}dw}{.9232} \\
         &= \frac{\int_{0}^2 e^{-2w}dw}{.9232} \\
         &= \frac{-\frac{1}{2}e^{-4} + \frac{1}{2}e^{0}}{.9232} \\
@@ -312,13 +312,66 @@
   \end{enumerate}
 \end{problem}
 
-\begin{problem}{3.31} %TODO
+\begin{problem}{3.31}
 \item
+  \begin{enumerate}[a.]
+    \item %A.
+      \begin{align*}
+        1 &= \int_{-\infty}^\infty cre^{-r^2} \ u(r)dr \\
+        &= c\int_{0}^\infty re^{-r^2} dr & & \textrm{let } -r^2 = u, -\frac{du}{2} = rdr \\
+        &= -\frac{c}{2}\int_{0}^\infty e^{u} du \\
+        &= -\frac{c}{2}\left[ e^{u}\big|_0^\infty \right] 
+          = -\frac{c}{2}\left[ e^{-r^2}\big|_0^\infty \right] \\
+        &= -\frac{c}{2}\left[ e^{-\infty} - e^0 \right] \\
+       1 &= \frac{c}{2} \\
+       c &= 2
+      \end{align*}
+    \item %B.
+      $P(R>r) = -e^{-r^2}\big|_r^\infty = -e^{-\infty} + e^-r^2 = e^-r^2$
+    \item %C.
+      \begin{align*}
+        P(R>1|R<2) &= \frac{P(1<R<2}{P(R<2)} \\
+        &= \frac{e^{-1^2}-e^{-2^2}}{1-e^{-2^2}} \\
+        &= .3561 
+      \end{align*}
+    \end{enumerate}
 \end{problem}
 
-\begin{problem}{3.33} %TODO
+\begin{problem}{3.33}
 \item
+  \begin{enumerate}[a.]
+    \item %A.
+      \begin{align*}
+        (n-1)! &= \Gamma(n) \\
+        &= \int_0^\infty t^{n-1}e^{-t}dt & & \textrm{integrate by parts} \\
+        &= \left[ -t^{n-1}e^-t\big|_0^\infty 
+          + (n-1)\int_0^\infty t^{n-2}e^{-t}dt\right] \\
+        &= 0+0+(n-1)\Gamma(n-1) & & \textrm{keep integrating by parts until} \\
+        &\dots \\ 
+        &= (n-1)!
+      \end{align*}
+    \item %B.
+       \begin{align*}
+        \Gamma(x+1) &= x\Gamma(x) \\
+        &= \int_0^\infty t^{x}e^{-t}dt & & \textrm{integrate by parts} \\
+        &= \left[ -t^{x}e^-t\big|_0^\infty 
+          + (x)\int_0^\infty t^{x-1}e^{-t}dt\right] \\
+        &= 0+0+(x)\Gamma(x) \\
+        &= x\Gamma(x) 
+      \end{align*}
+    \item %C.
+      Using the property discovered in B \\
+       \begin{align*}
+         \Gamma\left(\frac{1}{2}\right) &= 2\Gamma\left(\frac{3}{2}\right) \\
+         &= 2\int_0^\infty t^{\frac{1}{2}}e^{-t}dt & & \textrm{integrate using table} \\
+         &= 2\left[ -\sqrt{t}e^-t\big|_0^\infty \right]
+           + \frac{i\sqrt{\pi}}{2(-1)^{\frac{3}{2}}}erf(i\sqrt{-t})\big|_0^\infty \\
+           &= 0+0-2\frac{i\sqrt{\pi}}{2i}\left[erf(-\infty) - erf(0)\right]  \\
+           &= 0+0-2\frac{\sqrt{\pi}}{2}\left[-1 - 0\right]  \\
+           &= 0+0-2\frac{\sqrt{\pi}}{2}\left[-1 - 0\right]  \\
+           &= \sqrt{\pi}
+      \end{align*} 
+    \end{enumerate}
 \end{problem}
-
 
 \end{document}
