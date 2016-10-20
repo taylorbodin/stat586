@@ -248,7 +248,7 @@
   \end{enumerate}
 \end{problem}
 
-\begin{problem}{3.25} %TODO
+\begin{problem}{3.25}
 \item
   \begin{align*}
     P(v \geq \SI{10}{\micro\volt})
@@ -264,6 +264,20 @@
 
 \begin{problem}{3.27} %TODO
 \item
+  CDF: $F_\Theta (\theta) = \int_0^{\theta} \frac{1}{2\pi} d\theta = \frac{\theta}{2\pi}$
+  \begin{enumerate}[a.]
+    \item %A.
+      $P(\Theta > \frac{3\pi}{4}) = 1 - F_{\Theta}(\frac{3\pi}{4}) 
+        = 1 - \frac{\frac{3\pi}{4}}{2\pi} = \frac{5}{8}$
+      \item %B.
+        $P(\Theta < \pi | \Theta > \frac{3\pi}{4}) 
+          = \frac{P(\frac{3\pi}{4}<\Theta<\pi)}{P(\Theta > \frac{3\pi}{4})} 
+          = \frac{F_\Theta(\pi) - F_\Theta(\frac{3\pi}{4})}{1-F_\Theta(\frac{3\pi}{4}})
+          = \frac{1}{5}$
+        \item %C.
+          $P(\cos{\Theta} < \frac{1}{2}) = P(\Theta > \frac{\pi}{3})
+          = 1-F(\frac{\pi}{3}) = \frac{5}{6}$
+        \end{enumerate}
 \end{problem}
 
 \begin{problem}{3.29} %TODO
