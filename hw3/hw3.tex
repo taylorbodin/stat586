@@ -262,26 +262,54 @@
     $\sigma^2 = \SI{7.522e-2}{\nano\watt}$
 \end{problem}
 
-\begin{problem}{3.27} %TODO
+\begin{problem}{3.27}
 \item
   CDF: $F_\Theta (\theta) = \int_0^{\theta} \frac{1}{2\pi} d\theta = \frac{\theta}{2\pi}$
   \begin{enumerate}[a.]
     \item %A.
       $P(\Theta > \frac{3\pi}{4}) = 1 - F_{\Theta}(\frac{3\pi}{4}) 
-        = 1 - \frac{\frac{3\pi}{4}}{2\pi} = \frac{5}{8}$
-      \item %B.
-        $P(\Theta < \pi | \Theta > \frac{3\pi}{4}) 
-          = \frac{P(\frac{3\pi}{4}<\Theta<\pi)}{P(\Theta > \frac{3\pi}{4})} 
-          = \frac{F_\Theta(\pi) - F_\Theta(\frac{3\pi}{4})}{1-F_\Theta(\frac{3\pi}{4}})
-          = \frac{1}{5}$
-        \item %C.
-          $P(\cos{\Theta} < \frac{1}{2}) = P(\Theta > \frac{\pi}{3})
-          = 1-F(\frac{\pi}{3}) = \frac{5}{6}$
-        \end{enumerate}
+      = 1 - \frac{\frac{3\pi}{4}}{2\pi} = \frac{5}{8}$
+    \item %B.
+      $P(\Theta < \pi | \Theta > \frac{3\pi}{4}) 
+      = \frac{P(\frac{3\pi}{4}<\Theta<\pi)}{P(\Theta > \frac{3\pi}{4})} 
+      = \frac{F_\Theta(\pi) - F_\Theta(\frac{3\pi}{4})}{1-F_\Theta(\frac{3\pi}{4}})
+      = \frac{1}{5}$
+    \item %C.
+      $P(\cos{\Theta} < \frac{1}{2}) = P(\Theta > \frac{\pi}{3})
+      = 1-F(\frac{\pi}{3}) = \frac{5}{6}$
+  \end{enumerate}
 \end{problem}
 
-\begin{problem}{3.29} %TODO
+\begin{problem}{3.29}
 \item
+  \begin{enumerate}[a.]
+    \item %A.
+      \begin{align*}
+        1 &= c\int_{-\infty}^\infty e^{-2|w|}dw \\
+        &= 2c\int_0^\infty e^{-2w}dw \\
+        &= 2c\left[ -\frac{1}{2}e^{-2w}\big|_0^\infty \right] \\
+        &= 2c\left[ -\frac{1}{2}e^{\infty} + \frac{1}{2}e^{0} \right] \\
+        &= 2c\left[ 0 + \frac{1}{2} \right] \\
+        1 &= c        
+      \end{align*}
+    \item %B.
+      \begin{align*}
+        $P(-1<w<2) &= \int_{-1}^2 e^{-2|w|}dw \\
+        &= \int_{0}^1 e^{-2w}dw + \int_{0}^2 e^{-2w}dw \\
+        &= \left[ -\frac{1}{2}e^{-2} + \frac{1}{2}e^{0} \right] + 
+          \left[ -\frac{1}{2}e^{0} + \frac{1}{2}e^{-4} \right] \\
+        &= .9232 
+      \end{align*}
+    \item %C.
+      \begin{align*}
+        $P(w>0|-1<w<2) &= \frac{P(0<w<2)}{P(-1<w<2)} \\ 
+        &= \frac{\int_{0}^2 e^{-2|w|}dw}{.9232} \\
+        &= \frac{\int_{0}^2 e^{-2w}dw}{.9232} \\
+        &= \frac{-\frac{1}{2}e^{-4} + \frac{1}{2}e^{0}}{.9232} \\
+        &= \frac{.4908}{.9232} \\
+        &= .5317
+      \end{align*}
+  \end{enumerate}
 \end{problem}
 
 \begin{problem}{3.31} %TODO
