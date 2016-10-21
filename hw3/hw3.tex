@@ -1,7 +1,12 @@
 \documentclass[12pt]{article}
 \usepackage[margin=1in]{geometry} 
-\usepackage{amsmath,amsthm,amssymb,amsfonts,enumerate,listings,graphicx,epstopdf,siunitx}
-\graphicspath{~/Documents/school/fall16/stat586/hw2}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{enumerate,listings,graphicx,epstopdf,siunitx}
+\usepackage{color}
+\graphicspath{~/Documents/school/fall16/stat586/hw3}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
  
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -113,7 +118,7 @@
         &=\begin{cases}
             0 & x \leq 0 \\
             \frac{x^2}{2} & 0 < x \geq 1 \\
-            -\frac{x^2}{2} + 2x - 1 & 1 > x \geq 2 \\
+            -\frac{x^2}{2} + 2x - 1 & 1 < x \geq 2 \\
             1 & x > 2
           \end{cases}
       \end{align*}
@@ -374,4 +379,157 @@
     \end{enumerate}
 \end{problem}
 
+\newpage
+\section*{Problem 3.47 - Implementation}
+
+\begin{verbatim}
+function p = problem_3_47(b,a,m,sigma)
+fun = @(y) 1/sqrt(2*pi*sigma.^2)*exp(-(y-m).^2/(2*sigma.^2));
+p = integral(fun,a-b,a+b);
+\end{verbatim}
+
+\section*{Problem 3.47 - Test Script}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Setup
+   \item My function
+   \item Comparison
+\end{itemize}
+
+\subsection*{Setup}
+
+\begin{verbatim}
+low = 1;
+high = 2;
+mean = 0;
+sigma = 1;
+\end{verbatim}
+
+\subsection*{My function}
+
+\begin{verbatim}
+p1 = problem_3_47(high,low,mean,sigma);
+disp(p1);
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}    0.8400
+
+\end{verbatim} \color{black}
+
+\subsection*{Comparison}
+
+\begin{verbatim}
+normal_d = makedist('Normal',mean,sigma);
+p2 = cdf(normal_d,3) - cdf(normal_d,-1);
+disp(p2);
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}    0.8400
+
+\end{verbatim} \color{black}
+
+\newpage
+\section*{Problem 3.49}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Problem 3.49
+   \item Create Z
+   \item Fit a normal (My first guess)
+   \item Fit a Rayleigh (I'm going with this one)
+   \item Plot to see how we did
+\end{itemize}
+
+\subsection*{Problem 3.49}
+
+\begin{verbatim}
+close all; clear; clc;
+\end{verbatim}
+
+\subsection*{Create Z}
+
+\begin{verbatim}
+X = randn(200000,1);
+Y = randn(200000,1);
+Z = sqrt(X.^2+Y.^2);
+\end{verbatim}
+
+\subsection*{Fit a normal (My first guess)}
+
+\begin{verbatim}
+z_norm = fitdist(Z,'Normal');
+x = -2:.1:4;
+z_fit_norm = pdf(z_norm,x);
+\end{verbatim}
+
+\subsection*{Fit a Rayleigh (I'm going with this one)}
+
+\begin{verbatim}
+z_rayleigh = fitdist(Z,'Rayleigh');
+x = -2:.1:4;
+z_fit_rayleigh = pdf(z_rayleigh,x);
+\end{verbatim}
+
+\subsection*{Plot to see how we did}
+
+\begin{verbatim}
+figure(1);
+xlabel('Z values')
+ylabel('Probability')
+grid on
+hold on
+histogram(Z,200,'Normalization','pdf');
+plot(x,z_fit_norm,'LineWidth',2,'Color','r');
+plot(x,z_fit_rayleigh,'LineWidth',2,'Color','g');
+legend('Simulated Z','Normal Distribution Fit','Rayleigh Distribution Fit');
+\end{verbatim}
+
+\begin{figure}[htpb]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{problem_3_49_01.eps}
+\caption{Problem 2.49, Fitting Distributions to a Simulated Random Variable}
+\end{figure}
+
+\newpage
+
+\section*{Problem 3.51}
+
+\begin{verbatim}
+function x_val = problem_3_51(p)
+
+syms x y
+
+q_int = 1/sqrt(2*pi)*exp(-y^2/2); %Standard Normal Integrand
+
+x_val = solve(p==int(q_int,x,Inf),x); %Solve for x
+\end{verbatim}
+    
+\section*{Problem 3.51 Test Script}
+
+\begin{verbatim}
+close all; clear; clc;
+
+x1 = problem_3_51(.5); % Should return 0
+disp(double(x1));
+
+x2 = problem_3_51(.15865525); % Should return 1
+disp(double(x2));
+
+x3 = problem_3_51(.02275013); % Should return 2
+disp(double(x3));
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}   7.8299e-17
+
+    1.0000
+
+    2.0000
+
+\end{verbatim} \color{black}
+    
 \end{document}
