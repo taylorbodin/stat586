@@ -21,7 +21,7 @@
 \author{Taylor Bodin}
 \maketitle
 
-\section*{Problem 3.35}
+\section*{Problem 3.35} %TODO: Figures
 \subsection*{a.} %TODO: fig_3_35_a
 \begin{align*}
   f_{X|X>0} &= \frac{P(X \leq x, 0<X<\infty)}{P(0<X<\infty)} \\
@@ -163,6 +163,19 @@
 \end{align*}
 
 \section*{Problem 3.41}
+\subsection*{Setup}
+$R_{1 unit} = \lambda_n = \frac{1}{100} \textrm{days}^{-1}$ \\
+$R_{system} = \sum_{n=1}^{10} R_{1_unit} = (10)\frac{1}{100} = \frac{1}{10} \textrm{days}^{-1}$
+
+\subsection*{a.}
+\[
+  P(L_{system} > 100) = exp(-(\frac{1}{10} \textrm{days}^{-1})(10 \textrm{days})) = e^{-1} = .3679
+\]
+\subsection*{b.}
+\[
+  P(L_{unit} > 100) = exp(-(\frac{1}{100} \textrm{days}^{-1})(10 \textrm{days})) = e^{-1} = .9048
+\]
+\section*{Problem 3.43}
 \subsection*{c.}
 $R_{1 unit} = \lambda_n = \frac{1}{100} \textrm{days}^{-1}$ \\
 $R_{system} = \sum_{n=1}^{10} R_{1_unit} = (10)\frac{1}{100} = \frac{1}{10} \textrm{days}^{-1}$
@@ -181,6 +194,24 @@ $R_{system} = \sum_{n=1}^{10} R_{1_unit} = (10)\frac{1}{100} = \frac{1}{10} \tex
   &= \frac{.25(\frac{1}{1000}exp(\frac{-200}{1000}))}{.75(\frac{1}{100}exp(\frac{-200}{100})
     .25(\frac{1}{1000}exp(\frac{-200}{1000})} \\
   &= .1678
+\end{align*}
+
+\section*{Problem 3.45}
+\subsection*{a.}
+\begin{align*}
+  SSE &= \sum_{n=1}^k \left( F_n - (1 - exp(\frac{-x_n^2}{2\sigma^2}))^2 \right) \\
+  \frac{d}{d\sigma^2}SSE &= \frac{d}{d\sigma^2}\sum_{n=1}^k \left( F_n - (1 - exp(\frac{-x_n^2}{2\sigma^2}))^2 \right) \\
+  0 &= \frac{2}{\sigma^3}\sum_{n=1}^k \left( F_n - (1 - exp(\frac{-x_n^2}{2\sigma^2}))\right)exp(\frac{-2x_n^2}{2\sigma^2})x_n^2
+\end{align*}
+
+\subsection*{b.}
+\begin{align*}
+  SSE &= \sum_{n=1}^k \left( log(1-Fn) + \frac{-x_n^2}{2\sigma^2} \right)^2 \\
+  \frac{d}{d\sigma^2}SSE &= \frac{d}{d\sigma^2} \sum_{n=1}^k \left( log(1-Fn) + \frac{-x_n^2}{2\sigma^2} \right)^2 \\
+  0 &= \sum_{n=1}^k 2(log(1-F_n) + \frac{x_n^2}{2\sigma^2}(\frac{-x_n^2}{2\sigma^4}) \\
+  0 &= \sum_{n=1}^k 2(x_n^2 log(1-F_n) + \frac{x_n^4}{2\sigma^2}) \\
+  \frac{1}{\sigma^2} \sum_{n=1}^k x_n^4 &= \sum_{n=1}^k x_n^2 log(1-F_n) \\
+  \sigma^2 &= -\frac{\sum_{n=1}^k x_n^4}{\sum_{n=1}^k x_n^2 log(1-F_n)}
 \end{align*}
 
 \end{document}
