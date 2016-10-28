@@ -21,8 +21,8 @@
 \author{Taylor Bodin}
 \maketitle
 
-\section*{Problem 3.35} %TODO: Figures
-\subsection*{a.} %TODO: fig_3_35_a
+\section*{Problem 3.35}
+\subsection*{a.}
 \begin{align*}
   f_{X|X>0} &= \frac{P(X \leq x, 0<X<\infty)}{P(0<X<\infty)} \\
   &= \begin{cases} 
@@ -35,8 +35,8 @@
       \end{cases}
 \end{align*}
 
-%\includegraphics [width=4in]{fig_3_35_a.eps}
-\subsection*{b.} %TODO: fig_3_35_b
+\includegraphics [width=4in]{fig_3_35_a.eps}
+\subsection*{b.}
 \begin{align*}
   f_{X||X|>3} &= \frac{P(X \leq x, -3<X<3)}{P(-3<X<3)} \\
   &= \begin{cases} 
@@ -55,8 +55,8 @@
   \end{cases}
 \end{align*}
 
-%\includegraphics [width=4in]{fig_3_35_b.eps}
-\subsection*{c.} %TODO: fig_3_35_c
+\includegraphics [width=4in]{fig_3_35_b.eps}
+\subsection*{c.}
 \begin{align*}
   f_{X||X|<3} &= \frac{P(X \leq x, -3>X \cup  X>3)}{P(-3>X \cup  X>3)} \\
   &= \begin{cases} 
@@ -75,7 +75,7 @@
   \end{cases}
 \end{align*}
 
-%\includegraphics [width=4in]{fig_3_35_c.eps}
+\includegraphics [width=4in]{fig_3_35_c.eps}
 
 \section*{Problem 3.37}
 \subsection*{a.}
@@ -296,6 +296,209 @@ $R_{system} = \sum_{n=1}^{10} R_{1_unit} = (10)\frac{1}{100} = \frac{1}{10} \tex
 &= \SI{16.875}{\milli\watt} \\
 \end{align*}
 \section*{Problem 4.9}
+\begin{align*}
+  E[|x|] &= \int_{-\infty}^{\infty} |x|\normD{\sigma}{x}{\mu} dx,
+    & & \textrm{Let } x = \mu + \sigma t \\
+  &= \int_{-\infty}^{\infty} |\mu+\sigma t| \frac{1}{\sqrt{2\pi\sigma^2}}
+    exp(\frac{-t^2}{2})dx \\
+    &= \int_{-\infty}^{\frac{-\mu}{\sigma}}(\mu+\sigma t)\frac{1}{\sqrt{2\pi\sigma^2}}exp(\frac{-t}{2})dt \\
+    &+ \int_{\frac{-\mu}{\sigma}}^\infty{\sigma}(\mu+\sigma t)\frac{1}{\sqrt{2\pi\sigma^2}}exp(\frac{-t}{2})dt \\
+    &=\frac{\sigma}{\sqrt{2\pi}}\left[\int_{\frac{-\mu}{\sigma}}^\infty t \ exp(\frac{-t^2}{2}) -
+    \int_{\frac{-\mu}{\sigma}}^\infty t \ exp(\frac{-t^2}{2})\right] \\
+    &+ \mu\left[\int_{\frac{-\mu}{\sigma}}^\infty \frac{1}{\sqrt{2\pi}}exp(\frac{-t^2}{2})  -
+    \int_{\frac{-\mu}{\sigma}}^\infty \frac{1}{\sqrt{2\pi}}exp(\frac{-t^2}{2}) \right] \\
+    &=\frac{\sigma}{\sqrt{2\pi}}\left[-exp(\frac{-t^2}{2})\big|_{\frac{-\mu}{\sigma}}^\infty +
+    exp(\frac{-t^2}{2})\big|_{-\infty}{\frac{-\mu}{\sigma}}\right] \\
+    &+ \mu\left[Q(\frac{-\mu}{\sigma}) -[1-Q(\frac{-\mu}{\sigma})]\right]  \\
+    &= \frac{\sigma}{\sqrt{2\pi}}\left[ 0 + exp(\frac{-\frac{-\mu}{\sigma}}{2}) + exp(\frac{-\frac{-\mu}{\sigma}}{2}) - 0 \right]
+    + 2\mu Q(\frac{-\mu}{\sigma})-\mu \\
+    &= \frac{\sigma}{\sqrt{2\pi}} 2exp\left(-\frac{-\mu}{2\sigma}\right) + 2\mu Q\left(\frac{-\mu}{\sigma}\right)-\mu
+\end{align*}
+\section*{Problem 4.93}
+\subsection*{a.}
+If $X \sim unif[0,100]$ then $X$ is also distributed uniformly on the subinterval $[x,x+1]$ where $x \in [0,100]\cap \Z$
+Therefore, Z's support is on $[-.5,.5]$ which is the furthest distance Y can be from X for any rounding error. Then Z's
+PDF is also uniform and given by: \\
+\[ \begin{cases} 
+        1, & -.5 < z < .5 \\
+        0, & otherwise 
+    \end{cases} 
+\] \\
 
+It's also easy to determine the mean squared value using known values for a uniform distribution. 
+\begin{align*}
+  E[Z^2] &= E[Z]^2 + V[Z] \\
+  &= .5[-.5 + .5] + \frac{1}{12}[.5-(-.5)] \\
+  &= \frac{1}{12}
+\end{align*}
+
+\subsection*{b.}
+
+\begin{verbatim}
+close all; clear; clc;
+\end{verbatim}
+
+
+\subsubsection*{Create Z}
+
+\begin{verbatim}
+X = rand(200000,1);
+Y = round(X);
+Z = X-Y;
+\end{verbatim}
+
+
+\subsection*{Plot}
+
+\begin{verbatim}
+figure(1);
+xlabel('Z values')
+ylabel('Probability')
+grid on
+hold on
+histogram(Z,200,'Normalization','pdf');
+legend('Simulated Z');
+\end{verbatim}
+
+\includegraphics [width=4in]{problem_4_93_01.eps}
+\section*{Problem 4.95}
+\subsection*{Setup}
+\begin{verbatim}
+close all; clear; clc;
+\end{verbatim}
+
+
+\subsection*{Simulate X}
+
+\begin{verbatim}
+mu = 20;
+sigma = 4;
+N = 200000;
+
+X = sigma*randn(N,1)+mu;
+\end{verbatim}
+
+
+\subsection*{Sample Mean}
+This one seems to give the best estimate of the true mean for this distribution
+\begin{verbatim}
+sm = mean(X);
+disp(sm);
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}   20.0045
+
+\end{verbatim} \color{black}
+    
+
+\subsection*{Geometric Mean}
+
+\begin{verbatim}
+gm = geomean(X);
+disp(gm);
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}   19.5826
+
+\end{verbatim} \color{black}
+    
+
+\subsection*{Harmonic Mean}
+
+\begin{verbatim}
+hm =  harmmean(X);
+disp(hm);
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}   19.1246
+
+\end{verbatim} \color{black}
+    
+
+\subsection*{Quadratic Mean}
+
+\begin{verbatim}
+rms = rms(X);
+disp(rms);
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}   20.3989
+
+\end{verbatim} \color{black}
+
+\subsection*{Plot}
+
+\begin{verbatim}
+figure(1);
+xlabel('X values')
+ylabel('Count')
+grid on
+hold on
+histogram(X,200);
+legend('Simulated X');
+\end{verbatim}
+
+\includegraphics [width=4in]{problem_4_95_01.eps}
+\section*{Problem 4.97}
+
+\begin{verbatim}
+function H = text_freq(input_file)
+\end{verbatim}
+\subsection*{IO functions}
+
+\begin{verbatim}
+text = fopen(input_file);
+chars = fscanf(text, '%c');
+\end{verbatim}
+   
+\subsection*{Massage the data}
+
+\begin{verbatim}
+letters = chars((chars>= 65) & (chars <= 122));
+letters = lower(letters);
+\end{verbatim}
+
+\subsection*{Count the characters}
+
+\begin{verbatim}
+let_count = zeros(1,26);
+
+for n = 1:26
+let_count(n) = sum(letters == 96+n);
+end
+\end{verbatim}
+
+\subsection*{Calculate the pmf}
+
+\begin{verbatim}
+pmf = let_count./length(letters);
+\end{verbatim}
+
+\subsection*{Calculate entropy}
+Note: I borrowed the code for this section after reading a stack exchange on calculating entropy. The link is: \\
+http://stackoverflow.com/questions/22074941/shannons-entropy-calculation
+
+\begin{verbatim}
+H = sum(-(pmf(pmf>0).*(log2(pmf(pmf>0)))));
+
+return
+\end{verbatim}
+\subsection*{Problem 4.97 Test Script}
+
+\begin{verbatim}
+clear; close all; clc;
+\end{verbatim}
+
+
+\subsection*{Test}
+
+\begin{verbatim}
+H = text_freq('dummy_text.txt'); % 500 words of Lorem Ipsum
+disp(H);
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}    3.9985
+
+\end{verbatim} \color{black}
 
 \end{document}
