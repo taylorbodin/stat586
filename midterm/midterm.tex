@@ -1,0 +1,197 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{enumerate,listings,graphicx,epstopdf,siunitx}
+\usepackage{color}
+\graphicspath{~/Documents/school/fall16/stat586/midterm}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\normD}[3]{\frac{1}{\sqrt{2\pi #1^2}}exp(\frac{-( #2 - #3)^2}{2 #1^2})} 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]
+  \vspace{1 cm}
+}{\end{trivlist}}
+
+\begin{document}
+\title{Midterm}
+\author{Taylor Bodin}
+\maketitle
+
+\section*{Problem 1}
+
+\subsection*{a.}
+
+\subsubsection*{Derive $f_Y(y)$ }
+\begin{align*}
+  g(x) &= X^3 \\
+  g^{-1}(y) &= \sqrt[3]{y} \\
+  g^{'}(x) &= 3x^2 \\
+  g^{'}(g^{-1}(y)) &= 3y^{\frac{2}{3}} \\
+  f_X(g^{-1}(y)) &= 42y^{\frac{5}{3}}(1-\sqrt[3]{y}) \\
+  g(0) = 0 \\
+  g(1) = 1 \\
+  f_Y(y) &= 
+  \begin{cases}
+    \frac{f_X(g^{-1}(y))}{g^{'}(g^{-1}(y))} 
+    = \frac{42y^{\frac{5}{3}}(1-\sqrt[3]{y})}{3y^{\frac{2}{3}}}
+    = 14y(1-\sqrt[3]{y}), & 0 \leq y \leq 1 \\
+    0, & otherwise
+  \end{cases}
+\end{align*}
+
+\subsubsection*{Show that $\int_{-\infty}^\infty f_Y(y) = 1$ and state its support}
+\begin{align*}
+  \int_0^1 14y-14y^\frac{4}{3}dy 
+  &= 7y^2 - 14\left(\frac{3}{7}\right)y^{\frac{7}{3}}\big|_0^1 \\
+  &= 7y^2 - 6y^{\frac{7}{3}}\big|_0^1 \\
+  &= 7 - 6 - 0 = 1
+\end{align*}
+
+\subsection*{b.}
+
+\subsubsection*{Derive $f_Y(y)$}
+\begin{align*}
+  g(x) &= 4X + 3 \\
+  g^{-1}(y) &= \frac{y-3}{4} \\
+  g^{'}(x) &= 4 \\
+  g^{'}(g^{-1}(y)) &= 4 \\
+  f_X(g^{-1}(y)) &= 7e^{-7\frac{y-3}{4}} \\
+  g(0) = 3 \\
+  g(\infty) = \infty \\
+  f_Y(y) &= 
+  \begin{cases}
+    \frac{f_X(g^{-1}(y))}{g^{'}(g^{-1}(y))} 
+    = \frac{7e^{-7\frac{y-3}{4}}}{4}, & 3 \leq y < \infty \\
+    0, & otherwise
+  \end{cases}
+\end{align*}
+
+\subsubsection*{Show that $\int_{-\infty}^\infty f_Y(y) = 1$ and state its support}
+\begin{align*}
+  \int_3^\infty \frac{7e^{-7\frac{y-3}{4}}}{4}dy
+  &= \frac{7}{4}e^{\frac{21}{4}}\int_3^\infty e^{\frac{-7}{4}y}dy \\
+  &= \frac{7}{4}e^{\frac{21}{4}}\frac{-4}{7}\left[e^{\frac{-7}{4}y} \right]\big|_3^\infty \\
+  &= -e^{\frac{21}{4}}\left[ e^{-\infty} - e^{\frac{-21}{4}}  \right] \\
+  &= 1
+\end{align*}
+
+\subsection*{c.}
+
+\subsubsection*{Derive $f_Y(y)$}
+\begin{align*}
+  g(x) &= X^2 \\
+  g^{-1}(y) &= \sqrt{y} \\
+  g^{'}(x) &= 2x \\
+  g^{'}(g^{-1}(y)) &= 2\sqrt{y} \\
+  f_X(g^{-1}(y)) &= 20\sqrt{y}^2(1-\sqrt{y})^2 = 30y - 60y^{\frac{3}{2}} + 30y^2 \\
+  g(0) = 0 \\
+  g(1) = 1 \\
+  f_Y(y) &= 
+  \begin{cases}
+    \frac{f_X(g^{-1}(y))}{g^{'}(g^{-1}(y))} 
+    = \frac{30y - 60y^{\frac{3}{2}} + 30y^2}{2\sqrt{y}}
+    = 15\sqrt{y}(1-2\sqrt{y} + y) 
+    = 15y^{\frac{1}{2}}-30y+15y^{\frac{3}{2}}, & 0 \leq y < 1 \\
+    0, & otherwise
+  \end{cases}
+\end{align*}
+
+\subsubsection*{Show that $\int_{-\infty}^\infty f_Y(y) = 1$ and state its support}
+\begin{align*}
+  \int_0^1 15y^{\frac{1}{2}}-30y+15y^{\frac{3}{2}}dy
+  &= 10y^{\frac{3}{2}}-15y^2+6y^{\frac{5}{2}}\big|_0^1 \\
+  &= 10-15+6-0 \\
+  &= 1
+\end{align*}
+
+\section*{Problem 2}
+
+\subsection*{a.}
+
+\subsubsection*{Third Raw Moment}
+\begin{align*}
+  E[X^3] &= \sum_{x=0}^\infty \frac{x^3\lambda^x e^{-\lambda}}{x!} \\
+  &= e^{-\lambda} \sum_{x=0}^{\infty} \frac{x^2\lambda^x}{(x-1)!} \\
+  &= e^{-\lambda} \sum_{x=0}^{\infty} \frac{(m+1)^2\lambda^{m+1}}{m!} \\
+  &= e^{-\lambda}\lambda \sum_{x=0}^{\infty} (m^2+2m+1)\frac{\lambda^m}{m!} \\
+  &= e^{-\lambda}\lambda \left[\sum_{x=0}^{\infty} m^2\frac{\lambda^m}{m!}
+    + 2\sum_{x=0}^{\infty} m\frac{\lambda^m}{m!}
+    + \sum_{x=0}^{\infty} \frac{\lambda^m}{m!}\right] \\
+  &= e^{-\lambda}\lambda \left[\sum_{x=0}^{\infty} m\frac{\lambda^{m-1}}{(m-1)!}
+    + 2\lambda e^{\lambda}
+    + e^{\lambda}\right] \\
+  &= e^{-\lambda}\lambda \left[\lambda\sum_{x=0}^{\infty} (n+1)\frac{\lambda^{n}}{n!}
+    + 2\lambda e^{\lambda}
+    + e^{\lambda}\right] \\
+  &= e^{-\lambda}\lambda \left[\lambda\left[ \lambda e^{\lambda} + e^{\lambda} \right]
+    + 2\lambda e^{\lambda}
+    + e^{\lambda}\right] \\
+  &= e^{-\lambda}\lambda \left[\lambda^2 e^{\lambda} + 3\lambda e^{\lambda} + e^{\lambda} \right] \\
+  &= \lambda^3 + 3\lambda^2 + 1
+\end{align*}
+
+\subsubsection*{Fourth Raw Moment}
+\begin{align*}
+  E[X^4] &= \sum_{x=0}^\infty \frac{x^4\lambda^x e^{-\lambda}}{x!} \\
+  &= e^{-\lambda} \sum_{x=0}^{\infty} \frac{x^3\lambda^x}{(x-1)!} \\
+  &= e^{-\lambda} \sum_{x=0}^{\infty} \frac{(m+1)^3\lambda^{m+1}}{m!} \\
+  &= e^{-\lambda}\lambda \sum_{x=0}^{\infty} (m^3+3m^2+3m+1)\frac{\lambda^m}{m!} \\
+  &= e^{-\lambda}\lambda \left[\sum_{x=0}^{\infty} m^3\frac{\lambda^m}{m!}
+    + 3\sum_{x=0}^{\infty} m^2\frac{\lambda^m}{m!}
+    + 3\sum_{x=0}^{\infty} m\frac{\lambda^m}{m!}
+    + \sum_{x=0}^{\infty} \frac{\lambda^m}{m!}\right] \\
+  &= e^{-\lambda}\lambda \left[\sum_{x=0}^{\infty} m^2 \frac{\lambda^{m-1}}{(m-1)!}
+    + 3[\lambda^2e^{\lambda}+\lambda e^{\lambda}]
+    + 3\lambda e^{\lambda}
+    + e^{\lambda}\right] \\
+  &= e^{-\lambda}\lambda \left[\lambda\sum_{x=0}^{\infty} (n+1)^2 \frac{\lambda^{n}}{n!}
+    + 3[\lambda^2e^{\lambda}+\lambda e^{\lambda}]
+    + 3\lambda e^{\lambda}
+    + e^{\lambda}\right] \\
+  &= e^{-\lambda}\lambda \left[\lambda\sum_{x=0}^{\infty} (n^2+2n+1) \frac{\lambda^{n}}{n!}
+    + 3[\lambda^2e^{\lambda}+\lambda e^{\lambda}]
+    + 3\lambda e^{\lambda}
+    + e^{\lambda}\right] \\
+  &= e^{-\lambda}\lambda \left[\lambda^3 e^{\lambda} + 3\lambda^2 e^{\lambda} + \lambda e^{\lambda}
+    + 3\lambda^2e^{\lambda}+ 3\lambda e^{\lambda}
+    + 3\lambda e^{\lambda}
+    + e^{\lambda}\right] \\   
+  &= e^{-\lambda}\lambda \left[\lambda^3 e^{\lambda} + 6\lambda^2 e^{\lambda} 
+    + 7\lambda e^{\lambda} + e^{\lambda} \right] \\
+  &= \lambda^4 + 6\lambda^3 + 7\lambda^2 + \lambda
+\end{align*}
+
+
+\subsection*{b.}
+
+\subsubsection*{Third Raw Moment}
+\begin{align*}
+        E[X^3] &= \frac{1}{\Gamma(\alpha)\beta^\alpha} 
+          \int_0^\infty x^3 x^{\alpha-1} e^{\frac{-x}{\beta}}dx \\
+        &= \frac{1}{\Gamma(\alpha)\beta^\alpha} 
+          \int_0^\infty x^{\alpha+2} e^{\frac{-x}{\beta}}dx \\
+        &= \frac{1}{\Gamma(\alpha)\beta^\alpha} \frac{\Gamma(\alpha+3)\beta^{\alpha+3}}{1} 
+          \int_0^\infty \frac{1}{\Gamma(\alpha+3)\beta^{\alpha+3}} x^{\alpha+2} e^{\frac{-x}{\beta}}dx & &
+          \textrm{integral evaluates to 1}\\
+        &= \frac{1}{\Gamma(\alpha)\beta^\alpha} \frac{\Gamma(\alpha+3)\beta^{\alpha+3}}{1} \\
+        &= (\alpha + 2)(\alpha + 1)\alpha \beta^3
+\end{align*}
+
+\subsubsection*{Fourth Raw Moment}
+\begin{align*}
+        E[X^4] &= \frac{1}{\Gamma(\alpha)\beta^\alpha} 
+          \int_0^\infty x^4 x^{\alpha-1} e^{\frac{-x}{\beta}}dx \\
+        &= \frac{1}{\Gamma(\alpha)\beta^\alpha} 
+          \int_0^\infty x^{\alpha+3} e^{\frac{-x}{\beta}}dx \\
+        &= \frac{1}{\Gamma(\alpha)\beta^\alpha} \frac{\Gamma(\alpha+4)\beta^{\alpha+4}}{1} 
+          \int_0^\infty \frac{1}{\Gamma(\alpha+4)\beta^{\alpha+4}} x^{\alpha+3} e^{\frac{-x}{\beta}}dx & &
+          \textrm{integral evaluates to 1}\\
+        &= \frac{1}{\Gamma(\alpha)\beta^\alpha} \frac{\Gamma(\alpha+4)\beta^{\alpha+4}}{1} \\
+        &= (\alpha + 3)(\alpha + 2)(\alpha + 1)\alpha \beta^4
+\end{align*}
+
+\end{document} 
