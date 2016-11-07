@@ -43,7 +43,7 @@
   \end{cases}
 \end{align*}
 
-\subsubsection*{Show that $\int_{-\infty}^\infty f_Y(y) = 1$ and state its support}
+\subsubsection*{Show that $\int_{-\infty}^\infty f_Y(y) = 1$}
 \begin{align*}
   \int_0^1 14y-14y^\frac{4}{3}dy 
   &= 7y^2 - 14\left(\frac{3}{7}\right)y^{\frac{7}{3}}\big|_0^1 \\
@@ -70,7 +70,7 @@
   \end{cases}
 \end{align*}
 
-\subsubsection*{Show that $\int_{-\infty}^\infty f_Y(y) = 1$ and state its support}
+\subsubsection*{Show that $\int_{-\infty}^\infty f_Y(y) = 1$}
 \begin{align*}
   \int_3^\infty \frac{7e^{-7\frac{y-3}{4}}}{4}dy
   &= \frac{7}{4}e^{\frac{21}{4}}\int_3^\infty e^{\frac{-7}{4}y}dy \\
@@ -100,7 +100,7 @@
   \end{cases}
 \end{align*}
 
-\subsubsection*{Show that $\int_{-\infty}^\infty f_Y(y) = 1$ and state its support}
+\subsubsection*{Show that $\int_{-\infty}^\infty f_Y(y) = 1$} 
 \begin{align*}
   \int_0^1 15y^{\frac{1}{2}}-30y+15y^{\frac{3}{2}}dy
   &= 10y^{\frac{3}{2}}-15y^2+6y^{\frac{5}{2}}\big|_0^1 \\
@@ -176,7 +176,7 @@
           \int_0^\infty x^{\alpha+2} e^{\frac{-x}{\beta}}dx \\
         &= \frac{1}{\Gamma(\alpha)\beta^\alpha} \frac{\Gamma(\alpha+3)\beta^{\alpha+3}}{1} 
           \int_0^\infty \frac{1}{\Gamma(\alpha+3)\beta^{\alpha+3}} x^{\alpha+2} e^{\frac{-x}{\beta}}dx & &
-          \textrm{integral evaluates to 1}\\
+          \textrm{pdf integral evaluates to 1}\\
         &= \frac{1}{\Gamma(\alpha)\beta^\alpha} \frac{\Gamma(\alpha+3)\beta^{\alpha+3}}{1} \\
         &= (\alpha + 2)(\alpha + 1)\alpha \beta^3
 \end{align*}
@@ -189,9 +189,118 @@
           \int_0^\infty x^{\alpha+3} e^{\frac{-x}{\beta}}dx \\
         &= \frac{1}{\Gamma(\alpha)\beta^\alpha} \frac{\Gamma(\alpha+4)\beta^{\alpha+4}}{1} 
           \int_0^\infty \frac{1}{\Gamma(\alpha+4)\beta^{\alpha+4}} x^{\alpha+3} e^{\frac{-x}{\beta}}dx & &
-          \textrm{integral evaluates to 1}\\
+          \textrm{pdf integral evaluates to 1}\\
         &= \frac{1}{\Gamma(\alpha)\beta^\alpha} \frac{\Gamma(\alpha+4)\beta^{\alpha+4}}{1} \\
         &= (\alpha + 3)(\alpha + 2)(\alpha + 1)\alpha \beta^4
 \end{align*}
+
+\subsection*{c.}
+
+\subsubsection*{Third Raw Moment}
+\begin{align*}
+        E[X^3] &= \frac{1}{B(\alpha,\beta)} \int_0^1 x^3 x^{\alpha-1} (1-x)^{\beta-1}dx \\
+        &= \frac{1}{B(\alpha,\beta)} \int_0^1 x^{\alpha+2} (1-x)^{\beta-1}dx \\
+        &= \frac{1}{B(\alpha,\beta)}\frac{B(\alpha+3,\beta)}{1}
+          \int_0^1 \frac{1}{B(\alpha+3,\beta)} x^{\alpha+2} (1-x)^{\beta-1}dx & &
+          \textrm{pdf integral evaluates to 1} \\
+        &= \frac{B(\alpha+3,\beta)}{B(\alpha,\beta)} \\
+        &= \frac{\Gamma(\alpha+3)\Gamma(\beta)}{\Gamma(\alpha+\beta+3)}
+           \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} \\
+        &= \frac{(\alpha+2)(\alpha+1)\alpha}{(\alpha+\beta+2)(\alpha+\beta+1)(\alpha+\beta)}
+\end{align*}
+
+\subsubsection*{Fourth Raw Moment}
+\begin{align*}
+        E[X^4] &= \frac{1}{B(\alpha,\beta)} \int_0^1 x^4 x^{\alpha-1} (1-x)^{\beta-1}dx \\
+        &= \frac{1}{B(\alpha,\beta)} \int_0^1 x^{\alpha+3} (1-x)^{\beta-1}dx \\
+        &= \frac{1}{B(\alpha,\beta)}\frac{B(\alpha+4,\beta)}{1}
+          \int_0^1 \frac{1}{B(\alpha+4,\beta)} x^{\alpha+3} (1-x)^{\beta-1}dx & &
+          \textrm{pdf integral evaluates to 1} \\
+        &= \frac{B(\alpha+4,\beta)}{B(\alpha,\beta)} \\
+        &= \frac{\Gamma(\alpha+4)\Gamma(\beta)}{\Gamma(\alpha+\beta+4)}
+           \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} \\
+        &= \frac{(\alpha+3)(\alpha+2)(\alpha+1)\alpha}
+        {(\alpha+\beta+3)(\alpha+\beta+2)(\alpha+\beta+1)(\alpha+\beta)}
+\end{align*}
+
+\section*{Problem 3}
+
+\subsection*{a.}
+
+\subsubsection*{First Raw Moment, $\mu$}
+\begin{align*}
+  E[X] &= \sum_{x=0}^\infty x\binom{r+x-1}{x}p^r (1-p)^x \\
+  &= p^r \sum_{x=0}^\infty x\binom{-r}{x}(-1)^x(1-p)^x \\
+  &= p^r \sum_{x=0}^\infty x\frac{-r!}{x!(-r-x)!}(-1)^x(1-p)^x \\
+  &= p^r \sum_{x=0}^\infty \frac{-r!}{(x-1)!(-r-x)!}(-1)^x(1-p)^x \\
+  &= p^r \sum_{x=0}^\infty \frac{-r!}{(x-1)!(-r-x)!}(-1)^x(1-p)^x \\
+  &= p^r(-1)(1-p) \sum_{x=0}^\infty \frac{-r!}{(x-1)!(-r-x)!}(-1)^{x-1}(1-p)^{x-1} \\
+  &= p^r(-1)(1-p) \sum_{x=0}^\infty \frac{-r!}{m!(-r-m-1)!}(-1)^{m}(1-p)^{m} \\
+  &= p^r(-1)(1-p)(-r) \sum_{x=0}^\infty \frac{(-r-1)!}{m!(-r-1-m)!}(-1)^{m}(1-p)^{m} \\
+  &= p^r(-1)(1-p)(-r) \sum_{x=0}^\infty \binom{-r-1}{m}(-1)^{m}(1-p)^{m} \\
+  &= p^r(-1)(1-p)(-r)(1-(1-p))^{-r-1} \\
+  &= rp^r(1-p)p^{-r-1} \\
+  &= r\frac{1-p}{p} \\
+\end{align*}
+
+\subsubsection*{Second Raw Moment}
+\begin{align*}
+  E[X] &= \sum_{x=0}^\infty x^2\binom{r+x-1}{x}p^r (1-p)^x \\
+  &= p^r \sum_{x=0}^\infty x^2\binom{-r}{x}(-1)^x(1-p)^x \\
+  &= p^r \sum_{x=0}^\infty x^2\frac{-r!}{x!(-r-x)!}(-1)^x(1-p)^x \\
+  &= p^r \sum_{x=0}^\infty x\frac{-r!}{(x-1)!(-r-x)!}(-1)^x(1-p)^x \\
+  &= p^r \sum_{x=0}^\infty x\frac{-r!}{(x-1)!(-r-x)!}(-1)^x(1-p)^x \\
+  &= p^r(-1)(1-p) \sum_{x=0}^\infty x\frac{-r!}{(x-1)!(-r-x)!}(-1)^{x-1}(1-p)^{x-1} \\
+  &= p^r(-1)(1-p) \sum_{x=0}^\infty (m+1)\frac{-r!}{m!(-r-m-1)!}(-1)^{m}(1-p)^{m} \\
+  &= p^r(-1)(1-p)(-r) \sum_{x=0}^\infty (m+1)\frac{(-r-1)!}{m!(-r-1-m)!}(-1)^{m}(1-p)^{m} \\
+  &= p^r(1-p)r \left[\sum_{x=0}^\infty m\frac{(-r-1)!}{m!(-r-1-m)!}(-1)^{m}(1-p)^{m}\right] \\
+  &+ p^r(1-p)r \left[\sum_{x=0}^\infty \frac{(-r-1)!}{m!(-r-1-m)!}(-1)^{m}(1-p)^{m}\right]\\
+  &= p^r(1-p)r \left[\sum_{x=0}^\infty m\frac{(-r-1)!}{m!(-r-1-m)!}(-1)^{m}(1-p)^{m}\right] \\
+  &+ p^r(1-p)r \left[p^{-r-1}\right]\\
+  &= p^r(1-p)r \left[\sum_{x=0}^\infty \frac{(-r-1)!}{(m-1)!(-r-1-m)!}(-1)^{m}(1-p)^{m}\right] 
+  + r\frac{1-p}{p} \\
+  &= p^r(1-p)r \left[(-1)(1-p)\sum_{x=0}^\infty \frac{(-r-1)!}{(n)!(-r-1-n-1)!}(-1)^{n}(1-p)^{n}\right] 
+  + r\frac{1-p}{p} \\
+  &= p^r(1-p)r \left[(r+1_(1-p)\sum_{x=0}^\infty \frac{(-r-2)!}{(n)!(-r-2-n)!}(-1)^{n}(1-p)^{n}\right] 
+  + r\frac{1-p}{p} \\
+  &= p^r(1-p)r \left[(r+1)(1-p)p^{-r-2}\right] + r\frac{1-p}{p} \\
+  &= \frac{r(r+1)(1-p)^2}{p^2} + r\frac{1-p}{p}
+\end{align*}
+
+\subsection*{b.}
+\begin{align*}
+  E[e^{tX}] &= M_X(t) = \sum_0^\infty e^{tX} \binom{r+x-1}{x}p^r(1-p)^x \\
+  &= p^r \sum_{x=0}^\infty e^{tX}\binom{-r}{x}(-1)^x(1-p)^x \\
+  &= p^r \sum_{x=0}^\infty \binom{-r}{x}(-1)^x(e^{t}(1-p))^x \\
+  &= p^r \sum_{x=0}^\infty \binom{-r}{x}(-1)^x(e^{t}(1-p))^x \\
+  &= p^r (1-((e^{t}(1-p)))^-r \\
+  &= \frac{p^r}{(1-((e^{t}(1-p)))^r} \\
+  &= \frac{p^r}{(1-e^{t}(1-p))^r} \\
+\end{align*}
+
+\subsection*{c.}
+
+\subsubsection*{First Moment}
+\begin{align*}
+  \frac{d}{dt}M_X(t) &= -r\frac{p^r}{(1-e^{t}(1-p))^{r+1}}(-(1-p))e^t, & & \textrm{chain rule} \\
+  \frac{d}{dt}M_X(0) &= -r\frac{p^r}{(1-1+p))^{r+1}}(-(1-p)) \\
+  &= -r\frac{p^r}{p^{r+1}}(-(1-p)) \\
+  &= r\frac{1-p}{p^1} \\
+  &= r\frac{1-p}{p}, & & \textrm{This matches the answer from part A}
+\end{align*}
+
+\subsubsection*{Second Moment}
+\begin{align*}
+  \frac{d}{dt}M_X(t) &= -r\frac{p^r}{(1-e^{t}(1-p))^{r+1}}(-(1-p))e^t, & & \textrm{chain rule} \\
+  \frac{d^2}{dt^2}M_X(t) 
+  &= \frac{d}{dt}\left[\frac{p^r}{(1-e^{t}(1-p))^{r+1}}\left(r(1-p)e^t\right) \right] \\
+  &= (-r-1)\frac{p^r}{(1-e^{t}(1-p))^{r+2}}(-(1-p)e^t)\left(r(1-p)e^t\right) \\
+  &+ \frac{p^r}{(1-e^{t}(1-p))^{r+1}}\left(r(1-p)e^t\right) \\
+  \frac{d^2}{dt^2}M_X(0) &= r(r+1)(1-p)^2\frac{p^r}{p^{r+2}}
+  + r(1-p)\frac{p^r}{p^{r+1}} \\
+  &= \frac{r(r+1)(1-p)^2}{p^2} + r\frac{1-p}{p}, & & \textrm{This matches the answer from part A}
+\end{align*}
+
+
 
 \end{document} 
