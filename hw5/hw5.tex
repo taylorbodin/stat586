@@ -127,10 +127,106 @@ d has to satisfy the following inequality: $0\leq d \leq (ax+by+c)^n$
 
 \section*{Problem 5.11}
 \subsection*{a.}
+The area of and ellipse is $ab\pi$ which in this case is $6\pi$. Normalizing by the area:
 \[f_{x,y}(x,y) = 
 \begin{cases}
-c, & 9x^2 + 4y^2  < 36 \\
+\frac{1}{6\pi}, & 9x^2 + 4y^2  < 36 \\
 0, & otherwise
 \end{cases}
 \]
+\subsection*{b.}
+\subsubsection*{Find $f_x(x)$}
+\begin{align*}
+  f_x(x) &= \int_{\frac{-\sqrt{36-9x^2}}{4}}^{\frac{\sqrt{36-9x^2}}{4}}\frac{1}{6\pi} dy \\
+  &= \frac{1}{2\pi} \sqrt{4-x^2}, & -2 \leq x \leq 2
+\end{align*}
+
+\subsubsection*{Find $f_y(y)$}
+\begin{align*}
+  f_y(y) &= \int_{\frac{-\sqrt{36-4y^2}}{9}}^{\frac{\sqrt{36-4y^2}}{9}}\frac{1}{6\pi} dx \\
+  &= \frac{2}{9\pi}\sqrt{9-y^2}, & -3 \leq y \leq 3
+\end{align*}
+
+\subsection*{c.}
+\subsubsection*{Find $P(X<1)$}
+\[P(X>1) = \int_1^2 \frac{1}{2\pi} \sqrt{4-x^2}dx = .1955 \]
+
+\subsubsection*{Find $P(Y<1)$}
+\[P(Y<1) = \int_{-3}^1 \frac{2}{9\pi}\sqrt{9-y^2} = .7082 \]
+
+\subsection*{d.}
+\[P(Y<1|X>1) = \int_1^{\frac{\sqrt{27}}{2}} \int_{1}^{\frac{\sqrt{36-4y^2}}{9}}\frac{1}{6\pi} = .0468 \]
+
+\section*{Problem 5.13}
+\subsection*{a.}
+\begin{align*}
+  1 &= \sum_{m=0}^{L-1} \sum_{n=0}^{L-1-m} c \\
+  &= c\frac{L(L+1)}{2} \\
+  c &= \frac{2}{L(L+1)} \\
+\end{align*}
+
+\subsection*{b.}
+\subsubsection*{Find $P_M(m)$}
+\[P_M(m) = \sum_{n=0}^{L-1-m}\frac{2}{L(L+1)}  = \frac{2(L-m)}{L(L+1)} \]
+
+\subsubsection*{Find $P_N(m)$}
+\[P_N(n) = \sum_{m=0}^{L-1-n}\frac{2}{L(L+1)}  = \frac{2(L-n)}{L(L+1)} \]
+
+\subsection*{c.}
+\begin{align*}
+  P(M+N<\frac{L}{2}) = 
+  &= \begin{cases}
+    \sum_{m=0}^{\frac{L}{2}} \sum_{n=0}^{\frac{L}{2}-m} \frac{2}{L(L+1)}, & L \ \textrm{odd} \\
+    \sum_{m=0}^{L\frac{L}{2}-1} \sum_{n=0}^{\frac{L}{2}-1-m} \frac{2}{L(L+1)}, & L \ \textrm{odd} \\
+  \end{cases} \\
+  &= \begin{cases}
+    \frac{(L+2)(L+4)}{4L(L+1)}, & L \ \textrm{odd} \\
+    \frac{(L+2)}{4(L+1)}, & L \ \textrm{odd} \\
+  \end{cases}
+\end{align*}
+
+\section*{Problem 5.15}
+\subsection*{a.}
+By a geometry, $c = \frac{1}{k^2}$
+
+\subsection*{b.}
+\subsubsection*{Find $P_M(m)$}
+\[\sum_{n=0}^{k-1}\frac{1}{k^2} = \frac{k}{k^2} = \frac{1}{k}\]
+
+\subsubsection*{Find $P_N(n)$}
+\[\sum_{m=0}^{k-1}\frac{1}{k^2} = \frac{k}{k^2} = \frac{1}{k}\]
+
+\subsection*{c.}
+\[\sum_{n=0}^{\frac{k}{2}}\sum_{m=0}^{\frac{k}{2}-N}\frac{1}{k^2} = \frac{(k+2)(k+4)}{8k^2}\]
+
+\section*{Problem 5.17}
+\subsection*{a.}
+\[P(m|n=2) = \begin{cases}
+    \frac{4}{7}, & m = 1 \\
+    \frac{2}{7}, & m = 2 \\
+    \frac{1}{7}, & m = 3 \\
+     0, & otherwise
+   \end{cases}
+\]
+
+\subsection*{b.}
+\[P(m|n\geq2) = \begin{cases}
+    \frac{14}{24}, & m = 1 \\
+    \frac{7}{24}, & m = 2 \\
+    \frac{3}{24}, & m = 3 \\
+     0, & otherwise
+   \end{cases}
+\]
+
+\subsection*{c.}
+\[P(m|n\neq2) = \begin{cases}
+    \frac{14}{31}, & m = 1 \\
+    \frac{10}{31}, & m = 2 \\
+    \frac{7}{31}, & m = 3 \\
+     0, & otherwise
+   \end{cases}
+\]
+
+\section*{Problem 5.19}
+
 \end{document}
