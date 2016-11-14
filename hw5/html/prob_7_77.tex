@@ -1,0 +1,71 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{color}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{Problem 5.77}
+
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Setup
+   \item Experiment
+   \item Theory
+\end{itemize}
+
+
+\subsection*{Setup}
+
+\begin{verbatim}
+clear; close all; clc
+
+trials = 1000000;
+
+X = randn(trials,1) + 1; % Mean 1 - Variance = 1
+Y = randn(trials,1); % Mean = 0 - Variance = 1
+\end{verbatim}
+
+
+\subsection*{Experiment}
+
+\begin{verbatim}
+hits = sum((X.^2 + Y.^2) <= 1,1);
+p_exp = hits/trials;
+\end{verbatim}
+
+
+\subsection*{Theory}
+
+\begin{verbatim}
+fxy = @(x,y) (1/(2*pi)).*exp(-((x.*cos(y)-1).^2+(x.*sin(y)).^2)./2).*x;
+
+p_theory = integral2(fxy,0,1,0,2.*pi);
+
+
+disp(p_exp);
+disp(p_theory);
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}    0.2671
+
+    0.2671
+
+\end{verbatim} \color{black}
+    
+
+
+\end{document}
+    

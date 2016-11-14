@@ -228,5 +228,268 @@ By a geometry, $c = \frac{1}{k^2}$
 \]
 
 \section*{Problem 5.19}
+\subsection*{Setup}
+The area of this diamond shaped region is 2, therefor the normalizing constant needed for a uniform probability in the region is $\frac{1}{2}$.
+Using this constant it's easy to determine the pdf and marginals
+
+\begin{align*}
+  f_{x,y}(x,y) &=
+  \begin{cases}
+    \frac{1}{2}, & |x| + |y| \leq 1 \\
+    0, & otherwise
+  \end{cases} \\
+  f_{x}(x) &=
+  \begin{cases}
+    x+1, & -1\leq x \leq 0 \\
+    -x+1, & 0\leq x \leq 1 \\
+    0, & otherwise
+  \end{cases} \\
+  f_{y}(y) &=
+  \begin{cases}
+    y+1, & -1\leq y \leq 0 \\
+    -y+1, & 0\leq y \leq 1 \\
+    0, & otherwise
+  \end{cases} \\
+\end{align*}
+\subsection*{a.}
+\subsubsection*{Find $f_{x|y}(x)$}
+\begin{align*}
+  f_{x|y}(x) &= \frac{f_{x,y}(x,y)}{f_y(y)} \\
+  &= \begin{cases}
+    \frac{1}{2(y+1)}, & -1 \leq y \leq 0 \\
+    \frac{1}{2(-y+1)}, & 0 \leq y \leq 1 \\
+    0, & otherwise
+  \end{cases} \\
+\end{align*} 
+
+\subsubsection*{Find $f_{y|x}(y)$}
+\begin{align*}
+  f_{y|x}(y) &= \frac{f_{x,y}(x,y)}{f_x(x)} \\
+  &= \begin{cases}
+    \frac{1}{2(x+1)}, & -1 \leq x \leq 0 \\
+    \frac{1}{2(-x+1)}, & 0 \leq x \leq 1 \\
+    0, & otherwise
+  \end{cases} \\
+\end{align*} 
+
+\subsection*{b.}
+\subsubsection*{Find $F_{x|y}(x)$}
+\begin{align*}
+  F_{x|y}(x) &= \frac{\int_{-\infty}^x f_{x,y}(x',y)dx'}{f_y(y)} \\
+  &= \begin{cases}
+    \frac{x+y+1}{2(y+1)}, & -1 \leq y \leq 0  \\
+    \frac{-x+y+1}{2(-y+1)}, & 0 \leq y \leq 1  \\
+    0, & otherwise
+  \end{cases} \\
+\end{align*} 
+
+\subsubsection*{Find $F_{y|x}(y)$}
+\begin{align*}
+  F_{y|x}(y) &= \frac{\int_{-\infty}^y f_{x,y}(x,y')dy'}{f_x(x)} \\
+  &= \begin{cases}
+    \frac{x+y+1}{2(x+1)}, & -1 \leq x \leq 0 \\
+    \frac{x-y+1}{2(-x+1)}, & 0 \leq x \leq 1 \\
+    0, & otherwise
+  \end{cases} \\
+\end{align*} 
+
+\subsection*{c.}
+\subsubsection*{Find $f_{x|y>\frac{1}{2}}(x)$}
+\begin{align*}
+  f_{x|y>\frac{1}{2}}(x) &= \frac{\int_{\frac{1}{2}}^{|x|+1} f_{x,y}(x',y)dx'}{\int_{\frac{1}{2}}{1}f_y(y)} \\
+  &= \begin{cases}
+    2(2x+1), & -\frac{1}{2} \leq x \leq 0 \\
+    -2(2x+1), & 0 \leq x \leq \frac{1}{2} \\
+    0, & otherwise
+  \end{cases} \\
+\end{align*} 
+
+\subsubsection*{Find $F_{x|y>\frac{1}{2}}(y)$}
+\begin{align*}
+  F_{x|y>\frac{1}{2}}(y) &= \frac{F_{x,y}(x,y_2)-F_{x,y}(x,y_1)}{F_y(y_2)-F_y(y_1)} \\
+  &= \frac{-.25(|x|-x-1)}{\frac{39}{8}}
+\end{align*} 
+
+\section*{Problem 5.75}
+$c^2$ is the contour level and controls the size of the ellipse \\
+$\sigma_x , \sigma_y$ control the axis of the ellipse \\
+$\rho_{xy}$ is the correlation coefficient and as it gets bigger it makes the ellipse look
+more and more like $x = y$ \\
+
+\subsection*{Setup}
+
+\begin{verbatim}
+clear; close all; clc
+
+[X,Y] = meshgrid(-8:0.1:8);
+mux = 0; muy = 0;
+\end{verbatim}
+
+
+\subsection*{A}
+
+\begin{verbatim}
+stdx = 3; stdy = 3;
+varx = stdx^2; vary=stdy^2;
+rho = 0;
+
+X1 = (X-mux)/stdx;
+Y1 = (Y-muy)/stdy;
+
+Z = X1.^2-2*rho*X1.*Y1+Y1.^2;
+c = 1;
+
+figure(1);
+contour(X,Y,Z,c)
+
+title('Std x = Std y');
+xlabel('x'); ylabel('y');
+axis([-9 9 -9 9]);
+\end{verbatim}
+
+\includegraphics [width=4in]{prob_5_75_01.eps}
+
+
+\subsection*{B}
+
+\begin{verbatim}
+stdx = 1; stdy = 3;
+varx = stdx^2; vary=stdy^2;
+rho = 0;
+
+X1 = (X-mux)/stdx;
+Y1 = (Y-muy)/stdy;
+
+Z = X1.^2-2*rho*X1.*Y1+Y1.^2;
+c = 1;
+
+figure(2);
+contour(X,Y,Z,c)
+
+title('Std x < Std y');
+xlabel('x'); ylabel('y');
+\end{verbatim}
+
+\includegraphics [width=4in]{prob_5_75_02.eps}
+
+
+\subsection*{C}
+
+\begin{verbatim}
+stdx = 3; stdy = 1;
+varx = stdx^2; vary=stdy^2;
+rho = 0;
+
+X1 = (X-mux)/stdx;
+Y1 = (Y-muy)/stdy;
+
+Z = X1.^2-2*rho*X1.*Y1+Y1.^2;
+c = 1;
+
+figure(3);
+contour(X,Y,Z,c)
+
+title('Std x > Std y');
+xlabel('x'); ylabel('y');
+\end{verbatim}
+
+\includegraphics [width=4in]{prob_5_75_03.eps}
+
+
+\subsection*{D}
+
+\begin{verbatim}
+stdx = 3; stdy = 3;
+varx = stdx^2; vary=stdy^2;
+rho = .5;
+
+X1 = (X-mux)/stdx;
+Y1 = (Y-muy)/stdy;
+
+Z = X1.^2-2*rho*X1.*Y1+Y1.^2;
+c =1;
+
+figure(4);
+contour(X,Y,Z,c)
+
+title('Std x = Std y, Rho != 0');
+xlabel('x'); ylabel('y');
+\end{verbatim}
+
+\includegraphics [width=4in]{prob_5_75_04.eps}
+
+
+\subsection*{E}
+
+\begin{verbatim}
+stdx = 3; stdy = 3;
+varx = stdx^2; vary=stdy^2;
+rho = 0;
+
+X1 = (X-mux)/stdx;
+Y1 = (Y-muy)/stdy;
+
+Z = X1.^2-2*rho*X1.*Y1+Y1.^2;
+c = [.1 .5 1 2 4 8];
+
+figure(5);
+contour(X,Y,Z,c)
+
+title('Std x = Std y, Various C');
+xlabel('x'); ylabel('y');
+\end{verbatim}
+
+\includegraphics [width=4in]{prob_5_75_05.eps}
+
+\section*{Problem 5.77}
+
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Setup
+   \item Experiment
+   \item Theory
+\end{itemize}
+
+
+\subsection*{Setup}
+
+\begin{verbatim}
+clear; close all; clc
+
+trials = 1000000;
+
+X = randn(trials,1) + 1; % Mean 1 - Variance = 1
+Y = randn(trials,1); % Mean = 0 - Variance = 1
+\end{verbatim}
+
+
+\subsection*{Experiment}
+
+\begin{verbatim}
+hits = sum((X.^2 + Y.^2) <= 1,1);
+p_exp = hits/trials;
+\end{verbatim}
+
+
+\subsection*{Theory}
+
+\begin{verbatim}
+fxy = @(x,y) (1/(2*pi)).*exp(-((x.*cos(y)-1).^2+(x.*sin(y)).^2)./2).*x;
+
+p_theory = integral2(fxy,0,1,0,2.*pi);
+
+
+disp(p_exp);
+disp(p_theory);
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}    0.2671
+
+    0.2671
+
+\end{verbatim} \color{black}
 
 \end{document}

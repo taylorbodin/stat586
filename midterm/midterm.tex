@@ -301,6 +301,51 @@
   &= \frac{r(r+1)(1-p)^2}{p^2} + r\frac{1-p}{p}, & & \textrm{This matches the answer from part A}
 \end{align*}
 
+\section*{Problem 4}
+\begin{align*}
+  E\Big[|X-a|\Big] &= \int_{-\infty}^\infty |x-a| f_x(x) \\
+  &= \int_{a}^\infty (x-a) f_x(x) + \int_{-\infty}^a -(x-a) f_x(x)\\
+  &= \int_{a}^\infty x f_x(x) - \int_{-\infty}^a - f_x(x) - 
+  \int_{a}^\infty a f_x(x) + \int_{-\infty}^a  a f_x(x)\\
+  &= \int_{a}^\infty x f_x(x) - \int_{-\infty}^a - f_x(x) - 
+  \int_{a}^\infty a f_x(x) + \int_{-\infty}^a  a f_x(x)\\
+  &= E\Big[|X|\Big] - a F_x(x)\big|_a^\infty + a F_x(x)\big|_{-\infty}^a \\
+  &= E\Big[|X|\Big] - a[1 - F_x(a)] + a[F_x(a) - 0] \\
+  &= \frac{d}{da}\left[E\Big[|X|\Big] - a + 2aF_x(a)\right] \\
+  0 &= -1 + 2F_x(a) \\
+  \frac{1}{2} &= F_x(a) = F_x(m) \\
+  a &= m
+\end{align*}
 
+\section*{Problem 5}
+\subsection*{Derive $f_X(x)$ }
+\begin{align*}
+  g(\theta) &= cos(\theta), \textrm{note that $g(\theta)$ has 2 roots} \\
+  g^{-1}(y) &= cos^{-1}(x) \\
+  g^{'}(x) &= -sin(\theta) \\
+  f_\Theta(\theta) &= \frac{1}{2\pi} \\
+  f_\Theta(g^{-1}(x)) &= \frac{1}{2\pi} \\
+  g^{'}(g^{-1}(x)) &= -sin(cos^{-1}(x)) \\
+  f_Y(y) &= \sum \frac{f_x(x)}{\big|\frac{dy}{dx}\big|}\Bigg|_{g^{-1}(y)} \\
+  &= \begin{cases}
+    = \frac{\frac{1}{2\pi}}{\big|-sin(cos^{-1}(x))\big|} +
+      \frac{\frac{1}{2\pi}}{\big|-sin(cos^{-1}(x))\big|}
+    = \frac{1}{\pi\big|-sin(cos^{-1}(x))\big|}, & -1\leq X \leq 1 \\
+    0, & otherwise
+  \end{cases} \\
+  &= \begin{cases}
+    = \frac{1}{\pi\big|-\sqrt{1-x^2}\big|}
+    = \frac{1}{\pi\sqrt{1-x^2}}, & -1\leq X \leq 1 \\
+    0, & otherwise
+  \end{cases}
+\end{align*}
+
+\subsection*{Show that $\int_{-\infty}^\infty f_X(x) = 1$}
+\begin{align*}
+  \int_{-1}^1 \frac{1}{\pi\sqrt{1-x^2}}dx 
+  &= \frac{1}{\pi}\left[sin^{-1}(x)\big|_{-1}^1\right] \\
+  &= \frac{1}{\pi}\left[\frac{\pi}{2} - \frac{-\pi}{2}\right] \\
+  &= 1
+\end{align*}
 
 \end{document} 
