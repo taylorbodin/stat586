@@ -1,0 +1,136 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{enumerate,listings,graphicx,epstopdf,siunitx}
+\usepackage{color}
+\graphicspath{~/Documents/school/fall16/stat586/hw5}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\normD}[3]{\frac{1}{\sqrt{2\pi #1^2}}exp(\frac{-( #2 - #3)^2}{2 #1^2})} 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]
+  \vspace{1 cm}
+}{\end{trivlist}}
+
+\begin{document}
+\title{Homework Set 5}
+\author{Taylor Bodin}
+\maketitle
+
+\section*{Problem 5.1}
+\subsection*{a.}
+\[P(x<\frac{3}{4}) = F_{X,Y}(\frac{3}{4},\infty) = \frac{3}{4} \]
+
+\subsection*{b.}
+\[P(x>\frac{1}{2}) = 1 - F_{X,Y}(\frac{1}{2},\infty) = 1 - \frac{1}{2} = \frac{1}{2} \]
+
+\subsection*{c.}
+\[P(y>\frac{1}{4}) = 1 - F_{X,Y}(\frac{1}{4},\infty) = \frac{3}{4} \]
+
+\subsection*{c.}
+\[P(\frac{1}{4}<x<\frac{1}{2},\frac{1}{2}<y<1) = F_{X,Y}(\frac{1}{2},1)-F_{X,Y}(\frac{1}{4},\frac{1}{2}) 
+= \frac{1}{2}(1)-\frac{1}{2}\frac{1}{4} = \frac{3}{8} \]
+
+\section*{Problem 5.3}
+\subsection*{Setup}
+\subsubsection*{Determine the Coefficients}
+\begin{align*}
+F_{X,Y}(0,0) &= 0 = 1 - ae^0 - be^0 + ce^0 = 1 - a - b + c \\
+F_{X,Y}(0,\infty) &= 0 = 1 - ae^0 = 1 - a  \\
+F_{X,Y}(\infty,0) &= 0 = 1 - be^0 = 1 - b & & \textrm{Solving the system yields} \\
+a &= b = c = 1
+\end{align*}
+
+\subsubsection*{Determine $F_X(x)$}
+\[F_X(x) = F_{X,Y}(x,\infty) = 1-e^{-x}\]
+
+\subsubsection*{Determine $F_Y(y)$}
+\[F_Y(y) = F_{X,Y}(\infty,y) = 1-e^{-y}\]
+
+\subsection*{a.}
+\[P(a<X<b) = F_X(b) - F_X(a) = (1-e^{-b})-(1-e^{-a}) = e^{-a}-e^{-b}\]
+
+\subsection*{b.}
+\[P(c<X<d) = F_X(d) - F_X(c) = (1-e^{-d})-(1-e^{-c}) = e^{-c}-e^{-d}\]
+
+\subsection*{c.}
+\begin{align*}
+  P(a<X<b|c<X<d) &= \frac{F_{X,Y}(b,d)-F_{X,Y}(b,c) - F_{X,Y}(a,d) + F_{X,Y}(a,c)}
+    {e^{-c}-e^{-d}} & & \textrm{everything cancels except} \\
+    &= \frac{e^{-(b+d)}-e^{-(b+c)}-e^{-(a+d)}+e^{-(a+c)}}{e^{-c}-e^{-d}} \\
+\end{align*}
+
+\subsection*{Statistical Independance}
+X and Y are statistically independant if, $P(a<X<b|c<X<d) = P(a<X<b)$ \\
+\begin{align*}
+e^{-a}-e^{-b} &= \frac{e^{-(b+d)}-e^{-(b+c)}-e^{-(a+d)}+e^{-(a+c)}}{e^{-c}-e^{-d}} \\
+(e^{-a}-e^{-b})(e^{-c}-e^{-d}) &= e^{-(b+d)}-e^{-(b+c)}-e^{-(a+d)}+e^{-(a+c)} \\
+e^{-(b+d)}-e^{-(b+c)}-e^{-(a+d)}+e^{-(a+c)} &= e^{-(b+d)}-e^{-(b+c)}-e^{-(a+d)}+e^{-(a+c)}, & & \textrm{QED} \\
+\end{align*}
+
+\section*{Problem 5.5}
+\begin{align*}
+  P(a<X<b)P(c<Y<d) &= P(a<X<b,c<Y<d) \\
+  &= F_{X,Y}(b,d)-F_{X,Y}(b,c)-F_{X,Y}(a,d)+F_{X,Y}(a,c) \\
+  &= F_X(b)F_Y(d)-F_X(b)F_Y(c)-F_X(a)F_Y(b)+F_X(a)F_Y(c) \\
+  &= (F_X(b)-F_X(a))(F_Y(d)-F_Y(c)) \\
+  &= P(a<X<b)P(c<Y<d), & & \textrm{QED}
+\end{align*}
+
+\section*{Problem 5.7}
+\subsection*{a.}
+d has to satisfy the following inequality: $0\leq d \leq (ax+by+c)^n$
+
+\subsection*{b.}
+\subsubsection*{$f_X(x)$}
+\[f_x(x) = \int_0^\infty \frac{d}{(ax+by+c)^n} dy
+  = \frac{-d(by+ax+c)^{1-n}}{b(n-1)}\big|_0^\infty
+= \frac{d(ax+c)^{1-n}}{b(n-1)}\]
+
+\subsubsection*{$f_Y(y)$}
+\[f_y(y) = \int_0^\infty \frac{d}{(ax+by+c)^n} dx
+  = \frac{-d(by+ax+c)^{1-n}}{b(n-1)}\big|_0^\infty
+= \frac{d(by+c)^{1-n}}{a(n-1)}\]
+
+\subsection*{c.}
+\[\int_0^\infty \int_0^y \frac{d}{(ax+by+c)^n} dxdy 
+  = \frac{d}{a(n+1(n+2)}\left[ \frac{c^{2-n}}{b} \frac{c^{2-n}}{a+b}\right]\]
+
+\section*{Problem 5.9}
+\subsection*{a.}
+\begin{align*}
+ f_{r,\theta}(r,\theta) &= 
+ \begin{cases}
+   c\sqrt{1-r^2}, & r^2 \leq 1 \\
+   0, & otherwise
+ \end{cases} \\
+ 1 &= \int_0^{2\pi} \int_0^1 c\sqrt{1-r^2}rdrd\theta \\
+ 1 &= \frac{2\pi c}{3} \\
+ c &= \frac{3}{2\pi c}
+\end{align*}
+
+\subsection*{b.}
+\begin{align*}
+  P(X^2 + Y^2 > \frac{1}{4}) &= \int_0^{2\pi} \int_\frac{1}{4}^1 c\sqrt{1-r^2}rdrd\theta
+  &= \frac{15\sqrt{15}}{64} = .9077
+\end{align*}
+
+\subsection*{c.}
+\begin{align*}
+  P(X>Y) &= \int_{\frac{-3\pi}{4}}^{\frac{\pi}{4}} \int_0^1 c\sqrt{1-r^2}rdrd\theta \\
+  &= \frac{1}{2}
+\end{align*}
+
+\section*{Problem 5.11}
+\subsection*{a.}
+\[f_{x,y}(x,y) = 
+\begin{cases}
+c, & 9x^2 + 4y^2  < 36 \\
+0, & otherwise
+\end{cases}
+\]
+\end{document}
