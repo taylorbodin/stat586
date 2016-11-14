@@ -1,0 +1,38 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{enumerate,listings,graphicx,epstopdf,siunitx}
+\usepackage{color}
+\graphicspath{~/Documents/school/fall16/stat586/hw6}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\normD}[3]{\frac{1}{\sqrt{2\pi #1^2}}exp(\frac{-( #2 - #3)^2}{2 #1^2})} 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]
+  \vspace{1 cm}
+}{\end{trivlist}}
+
+\begin{document}
+\title{Homework Set 6}
+\author{Taylor Bodin}
+\maketitle
+
+\section*{Problem 5.1}
+\subsection*{a.}
+\[P(x<\frac{3}{4}) = F_{X,Y}(\frac{3}{4},\infty) = \frac{3}{4} \]
+
+\subsection*{b.}
+\[P(x>\frac{1}{2}) = 1 - F_{X,Y}(\frac{1}{2},\infty) = 1 - \frac{1}{2} = \frac{1}{2} \]
+
+\subsection*{c.}
+\[P(y>\frac{1}{4}) = 1 - F_{X,Y}(\frac{1}{4},\infty) = \frac{3}{4} \]
+
+\subsection*{c.}
+\[P(\frac{1}{4}<x<\frac{1}{2},\frac{1}{2}<y<1) = F_{X,Y}(\frac{1}{2},1)-F_{X,Y}(\frac{1}{4},\frac{1}{2}) 
+= \frac{1}{2}(1)-\frac{1}{2}\frac{1}{4} = \frac{3}{8} \]
+
+\end{document}
