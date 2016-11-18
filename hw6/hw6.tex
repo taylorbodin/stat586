@@ -144,6 +144,16 @@ PMFs.
 \end{align*}
 
 \section{Problem 5.41}
+\begin{align*}
+  \Theta_{X,Y}(\omega_1,\omega_2) &= E\left[ exp(j\omega_2 Y)E[exp(j\omega_1X|y)] \right] \\
+  &= E\left[ exp(j\omega_2 Y)\left( exp(j(\mu_{x|y}\omega_1)-\frac{\omega_1^2\sigma_{x|y}^2)}{2} \right)\right] \\
+  &= exp\left( -\frac{\omega_1^2(\sigma_x^2(1-\rho_{xy}^2)^2)}{2} \right)
+  exp\left( -\omega_1(\mu_X+\rho_{XY})(\frac{\sigma_x}{\sigma_y}) \right)
+  E\left[exp\left( jY(\omega_2+(\mu_x+\rho_{xy})\frac{\sigma_x}{\sigma_y}\omega_1)\right)\right] \\
+  &= exp\left( -\frac{\omega_1^2(\sigma_x^2(1-\rho_{xy}^2)^2)}{2} 
+  -\omega_1(\mu_X+\rho_{XY})(\frac{\sigma_x}{\sigma_y})
+  -\frac{(\omega_2+(\mu_x+\rho_{xy})\frac{\sigma_x}{\sigma_y}\omega_1)^2-\mu_y}{2\sigma_Y}\right) \\
+\end{align*}
 
 \section{Problem 5.45}
 \subsection{a.}
@@ -178,7 +188,10 @@ f_Z(z) &= f_X(z) * f_Y(z) \\
 \end{align*}
 
 \section{Problem 5.53}
-
+I attempted this one, but I ran into some problems. I could try to convolve these pdfs to determine the pdf of z, but that intergral
+doesn't look very solvable. Then I thought I could multiple the characeristic function of a Rayleigh by the CF of a arcsine, which
+is doable, but then doing the inverse transform looked daunting. Finally, I don't understand the conditional PDF approach since,
+it seems to imply that I already have $f_z(z)$ to condition on. I suspect that this is the approach I'm supposed to use here though. 
 \section{Problem 5.57}
 \begin{align*}
   E[U] &= aE[X] + bE[Y] = 0 \\
@@ -216,6 +229,73 @@ f_Z(z) &= f_X(z) * f_Y(z) \\
   &= (1-p)^2p^k\sum_{i=0}^k p^{-i}p^i \\
   &= (1-p)^2p^k(k+1)
 \end{align*}
+\section*{Problem 5.79}
+
+\begin{par}
+I copied the code from example 5.16 and made one change to meet the requirments for this part
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Setup
+   \item Generate the RVs and count
+   \item Plot
+\end{itemize}
+
+
+\subsection*{Setup}
+
+\begin{verbatim}
+clear
+N=1000; % number of samples per iteration
+bw=0.1; % bin widths for histogram
+xbins=[-1.4:bw:1.4];
+ybins=[-1.4:bw:1.4]; % histogram bins
+iterations=100; % number of iterations
+M=length(xbins);
+Nsamples=zeros(M); % initialize matrix for storing data
+count=0; % initialize counter.
+\end{verbatim}
+
+
+\subsection*{Generate the RVs and count}
+
+\begin{verbatim}
+for ii=1:iterations
+x=2*rand(1,N)-1; y=2*rand(1,N)-1; % generate variables over square
+% keep only those within the unit circle.
+X=[]; Y=[];
+for k=1:N
+if x(k)^2+4*y(k)^2<1
+X=[X x(k)];
+Y=[Y y(k)];
+end % end if statement
+end % end k loop
+count=count+length(X); % count random samples generated
+% Compute number of samples that fall within each bin.
+for m=1:length(xbins)
+for n=1:length(ybins)
+temp1=(abs(X-xbins(m))<bw/2);
+temp2=(abs(Y-ybins(n))<bw/2);
+Nsamples(m,n)=Nsamples(m,n)+sum(temp1.*temp2);
+end % end n loop
+end % end m loop
+end % end iterations
+\end{verbatim}
+
+
+\subsection*{Plot}
+
+\begin{verbatim}
+PDFest=Nsamples/(count*bw^2); % convert to prob. densities
+mesh(xbins,ybins,PDFest) % plot estimate of joint PDF
+xlabel('x'); ylabel('y'); % label plot axes
+zlabel('Joint PDF');
+\end{verbatim}
+
+\includegraphics [width=4in]{prob_5_79_01.eps}
 
 \end{document}
 
