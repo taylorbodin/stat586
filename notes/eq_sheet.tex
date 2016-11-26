@@ -1,0 +1,322 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{enumerate,listings,graphicx,epstopdf,siunitx}
+\usepackage{color}
+\graphicspath{~/Documents/school/fall16/stat586/hw5}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\normD}[3]{\frac{1}{\sqrt{2\pi #1^2}}exp(\frac{-( #2 - #3)^2}{2 #1^2})} 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]
+  \vspace{1 cm}
+}{\end{trivlist}}
+
+\begin{document}
+\title{Note Sheet}
+\author{Taylor Bodin}
+\maketitle
+
+\section{Chapter 4}
+
+\subsection{Expected Value}
+Nothing more complicated than the average. Also the first raw
+moment and kind of a central moment in a way
+
+\[E[X] = \int_{-\infty}^\infty xf_X(x)dx\]
+
+this defininition can be exteneded to the discrete case by:
+
+\[E[X] = \sum_k x_k P_X(x_k)\]
+
+The expected value is also denoted by $X\bar, \mu_X$
+
+\subsection{Expectation of Functions of RV}
+Now we extend the expectation operator to functions of x
+
+\[E[g(x)] = \int_{-\infty}^\infty g(x)f_X(x)dx\]
+
+And the discrete case:
+\[E[g(x)] = \sum_k g(x_k) P_X(x_k)\]
+
+\subsubsection{Theorem 4.1- Linearity}
+Continous:
+\[E[aX + b] = aE[X] +b\]
+More generally, if $g(x)$ can be written as a sum of serveral other
+linear operators then,
+\[E\left[ \sum_k g_k(X) \right] = \sum_k E[g_k(X)]\]
+
+Given this property, several special function of X have been
+defined because they give insight into properties of a given 
+distribution.
+
+\subsection{Moments}
+
+The most common are the first and the second depending on the type
+of distribution. An example where the second moment is better might
+be for a noise signal with 0 mean. The second moment gives an idea
+of the power of the noise since the negative portions will no longer
+cancel with the positives.
+
+\[E[X^n] = \int x^nF_X(x) dx\]
+
+and discrete:
+
+\[E[X^n] = \sum_k x_k^nF_X(x_k)\]
+
+\subsection{Centeral Moment}
+These are really useful to negate the effect of a biasing term
+that dominates a random variable so that the true nature of the
+RV is easier to observe.
+
+\[E[(X-\mu_x)^n] = \int (x-\mu_x)^nF_X(x) dx\]
+
+Discrete:
+\[E[(X-\mu_x)^n] = \int (x-\mu_x)^nF_X(x) dx\]
+
+\subsubsection{Variance}
+
+Variance, also denoted $\sigma_X^2$ is the second centeral moment
+and gives a measure of the ``fatness'' of a distribution or its
+dispertion. Taking the square root forms the standard deviation.
+Other special types of central moment are listed in table 4.1 on
+page 115 of the book
+
+\subsection{Conditional Expectation}
+To calculate the conditional expectation, one must first find the
+conditional PDF/PMF and then use the formulas for expecation listed
+above.
+
+\subsection{Transformations of Random Variables}
+Given that RV Y is a function of RV X, what is the pdf and cdf of
+Y? It's often useful in engineering because we know the input to a 
+system but we don't know how that system is affecting the output.
+
+\subsubsection{Monotonically Increasing Functions}
+This is a function that is continuous, one-to-one mapping, and 
+increasing. Using these properties, the transformation is developed
+in the book by plugging in the inverse function into the CDF
+for X such that $F_X(g^{-1}(y))$. Then by differentiating we 
+obtain the useful equations for this section listed below.
+\begin{align}
+  f_Y(y) = f_X(x)\frac{dx}{dy}\big|_{x=g^{-1}(y)} \\
+  f_Y(y) = \frac{f_X(x)}{\frac{dy}{dx}}\big|_{x=g^{-1}(y)} \\
+\end{align}
+
+\subsubsection{Monotonically Decreasing Functions}
+Because it's decreasing, the developement chages a little bit
+and you have to subtract these portions.
+\begin{align}
+  f_Y(y) = -f_X(x)\frac{dx}{dy}\big|_{x=g^{-1}(y)} \\
+  f_Y(y) = -\frac{f_X(x)}{\frac{dy}{dx}}\big|_{x=g^{-1}(y)} \\
+\end{align}
+
+if you slap a absolute value on the derivative you cover both cases
+and generalizes both sections to the following:
+\begin{align}
+  f_Y(y) = f_X(x)|\frac{dx}{dy}|\big|_{x=g^{-1}(y)} \\
+  f_Y(y) = \frac{f_X(x)}{|\frac{dy}{dx}|}\big|_{x=g^{-1}(y)} \\
+\end{align}
+
+\subsubsection{Theorem 4.2}
+\[f_Y(y) = \sum_k f_X(x)|\frac{dx}{dy}|\big|_{x_i = g^{-1}(y)}\]
+\[f_Y(y) = \sum_k \frac{f_X(x)}{|\frac{dx}{dy}}|\big|_{x_i = g^{-1}(y)}\]
+
+Where $x_i$ are the roots of the equation $y= g(x)$.
+
+\subsection{Characteristic Functions}
+Similiar to the Fourier transform an useful for the same reasons
+when we have to do convolutions later. It's also useful for finding
+moments. It is found by:
+
+\[\Phi_X(\omega) = E[e^{j\omega X}] = \int_{-\infty}^{\infty} e^{j\omega X}f_X(x) dx\]
+
+The inverse function is given by:
+
+\[f_X(x) = \frac{1}{2\pi}\int_{-\infty}^{\infty} e^{-j\omega X}\Phi_X(\omega) d\omega\]
+
+Just like with signal analysis, the frequency domain versions
+of a distribution can determined using tables and properties of the
+fourier transform.
+
+\subsubsection{Finding moments with a Characterisc Function}
+\[E[X^k] = (-j)^k \frac{d^k}{d\omega^k}\Phi_X(\omega)\big|_{\omega = 0}\]
+
+If the derivatives turn out to be really difficult you can use
+the Taylor Series expansion of the characteristic function to find
+the moments. A formula and examples are given in the book. \\
+
+It's also possible to take the natural log of the characteristic
+function since it typically has an exponent. The terms without 
+and exponent get wrapped up in a logarithm and are called cumulants.
+There is an equation in the book to generate moments using cumulants
+too.
+
+\subsection{Probability Generating Function}
+This is like the Fourier Transform for the discrete case. It's
+analogous to the z-transform and shares many properties. It's
+defined as:
+
+\[H_X(z) = \sum_{k=0}^\infty P_X(k)z^k \]
+
+\subsubsection{Theorem 4.4}
+Finding moments with the PGF is a little weird since you
+actually produce factorial moments. It's easy to build up to 
+the raw moment you want though.
+
+\[h_k = \frac{d^k}{dz^k}H_X(z)\big|_{z=1} = E[X(X-1)(X-2)\cdots(X-k+1)]\]
+
+To find the second moment for example:
+
+\begin{align}
+  h_2 &= E[X(X-1)] \\
+  &= E[X^2] - E[X] \\
+  &= E[X^2] - h1 \\
+  E[X^2] &= h1+h2
+\end{align}
+
+\subsection{Moment-Generating Functions}
+This tool is similiar to the Lapalace Transform and can be used for
+inherently non-negative distributions.
+
+\[M_X(u) = E[exp(uX)] = \int_0^\infty f_X(x)exp(ux)dx\]
+
+The moments are found in a similar fashion by:
+
+\[E[X^k] = \frac{d^k}{du^k}M_X(u)\big|_{u=0}\]
+
+\section{Chapter 5}
+\subsection{The Joint CDF}
+The joint CDF is a higher dimension analogue of the univariate CDF.
+
+\[F_{X,Y}(x,y) = P(X\leq x, Y\leq y)\]
+
+CDFs are governed by the same rules as the univariate case. Some
+interesting things fall out of those rules though. First is that 
+at $-\infty$, for either variable, the joint CDF must be zero and at
+$\infty$ for both variables the joint CDF must be one. By integrating
+one of the variables over all values, you can obtain the marginal
+PDF.\\
+
+When trying to find the probability of a square region you have to
+use a formula so you don't double count. There's a good picture
+that explains this in the book on page 179. The formula is:
+
+\[P(x_1 < X < x_2,y_1 < Y < y_2) = F_{X,Y}(x_2,y_2)-
+F_{X,Y}(x_1,y_2)-F_{X,Y}(x_2,y_1)F_{X,Y}(x_1,y_1)\]
+
+\subsection{The Joint PDF}
+The joint PDF is the probability density of a tiny pixel of area.
+We can avoid the difficulty of working with CDFs for more complicated
+regions by employing calculus and the PDF. PDFs and CDFs share the
+same relationships in the univariate case, except that now
+were taking a double integral or 2 partials depending on the 
+direction we go. \\
+
+To find the probability of a region using a joint PDF:
+
+\[P((X,Y)\in A) = \iint_A f_{X,Y}(x,y)dxdy\]
+
+\subsection{The Joint PMF}
+This is the discrete case:
+
+\[P_{X,Y}(x,y) = P(X=x) \cap P(Y=y)\]
+
+\subsection{The Conditional Distribution, Density, and Mass Function}
+First the discrete case is given since it's the closest to the
+version given in chapter three.
+\[P(X=x|Y=y) = \frac{P(X=x,Y=y)}{P(Y=y)} = \frac{P_{X,Y}(x,y)}{P_Y(y)}\]
+
+Then the conditional PDF is developed by taking the discrete case 
+to the limit.
+
+\[f_{X|Y}(x|y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}\]
+
+To use these you just evaluate over the appropriate region. Pg 191,
+has a examples.
+
+\subsection{Expectations Involving Pairs of Random Variables}
+Expectation is generalized to pairs of random variables. Given
+an arbitrary function of the two variables, $g(x,y)$, the 
+expectation is given as:
+\[E[g(x,y)]=\iint g(x,y)f_{X,Y}(x,y)dxdy\]
+
+For the discrete case:
+
+\[E[g(x,y)]=\sum_m \sum_n g(x_m,y_n)P_{X,Y}(x_m,y_n)\]
+
+It is worth noting that if g is just a function of one of the
+variables, expectation goes to the univariate case:
+
+\[E[g(x)] = \int g(x)f_X(x)dx\]
+
+\subsection{Miller Correlation}
+Just like the special functions that characterized the 
+distributions in a univariate case there are special functions
+that help to characterize the joint PDF. Below is the Miller 
+correlation. 
+
+\[R_{X,Y} = E[XY] = \iint xyf_{X,Y}(x,y)dxdy\]
+
+When it's zero the RV are said to be orthogonal.
+
+\subsection{Covariance}
+\[Cov(X,Y) = E[(X-\mu_x)(Y-\mu_y)] = \iint(x-\mu_x)(y-\mu_y)f_{X,Y}(x,y)dxdy\]
+
+If the covariance is zero the RV are said to be uncorrelated.
+
+\subsection{Pearson's Correlation}
+\[\rho_{X,Y} = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}} = \frac{E[(X-\mu_X)(Y-\mu_Y)]}{\sigma_X\sigma_Y}\]
+
+\subsection{Moments}
+The nth raw moment
+\[E[X^mY^n] = \iint x^m y^n f_{X,Y}(x,y)dxdy\]
+The nth central moment
+\[E[(X-\mu_X)^m(Y-\mu_Y)^n] = \iint (X-\mu_X)^m(Y-\mu_Y)^nf_{X,Y}(x,y)dxdy\]
+
+\subsection{Conditional Expectation}
+\[E[g(x)|Y] = \int_{-\infty}^\infty g(x)f_{X|Y}(x|y)dx\]
+
+If you're trying to do an expectation of a function of x and y and
+they're seperable you can reduce it to two univariate expectations.
+The Miller correlation is a particularly useful example of this and
+is given above. A more general formula is 196.
+
+\[R_{X,Y} = E_X[XE_Y[Y|X]]\]
+
+\subsection{Independence}
+To show independence between two RV it's necessary to show
+
+\[P(A,B)=P(A)P(B)\]
+
+You can use either PDF,PMF or CDF to show the above to be true. You
+can also show that the joint PDF is seperable. Also, if the 
+conditional PDF is equal to the marginal it's independent. \\
+
+\subsubsection{Theorem 5.5}
+If new random variables U and V are formed by transforming 
+independent RVs X and Y, U and V are also independent. 
+
+\subsubsection{Theorem 5.6}
+If X and Y are independent the, $E[XY] = \mu_X\mu_Y, Cov(X,Y)=0,
+\rho_{X,Y}=0$.
+
+\subsection{Jointly Gaussian RVs}
+The form of the joint is:
+
+\[
+  f_{X,Y}(X,Y) = \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho_{X,Y}}}
+  exp\left[ -\frac{\frac{x-\mu_x}{\sigma_X}\right)^2-2\rho_{X,Y}\left( \frac{x-mu_X}{\sigma_x} \right) \left( \frac{y-\mu_Y}{\sigma_Y} \right)+\left( \frac{y-\mu_Y}{\sigma_Y} \right)^2\}{2(1-\rho_{X,Y})^2}\right]
+\]
+
+\subsection{Useful Expecations}
+\begin{align}
+  E[(X+Y)^2] &= E[X^2] + E[Y^2] + 2E[XY] \\
+  Cov(X,Y) &= R_{X,Y}-\mu_X\mu_Y = E[XY] - \mu_X\mu_Y \\
+  Var(X+Y) &= Var(X) + Var(Y) + 2Cov(X,Y) \\
+\end{align}
+\end{document}
