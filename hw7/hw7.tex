@@ -220,4 +220,67 @@ Because it's an unbiased estimator:
   &= \frac{\sigma_X^2}{n} - \mu^2 - (\frac{\sigma_X^2}{n} + \mu^2) - \mu^2 + \mu^2 \\
   &= 0 & & \therefore \textrm{Sample mean is independent of sample variance.}
 \end{align*}
+
+\section*{Problem 6.45}
+
+\begin{par}
+Taylor Bodin
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Data entry
+   \item Positive Definite
+   \item Symmetric
+   \item Answer
+\end{itemize}
+
+
+\subsection*{Data entry}
+
+\begin{verbatim}
+ca = [3 -2 1;2 6 0;-1 0 2];
+cb = [3 -2 3;-2 6 0;3 0 2];
+cc = [3 -2 1;-2 6 0;1 0 2];
+cd = [1 -1/2 1/4 -1/8;-1/2 1 -1/2 1/4;1/4 -1/2 1 -1/2;-1/8 1/4 -1/2 1];
+ce = [11 -3 7 5;-3 11 5 7;7 5 11 -3;5 7 -3 11];
+cf = [5 1 3 -1;1 5 -1 3;3 -1 5 1;-1 3 1 5];
+
+mats = {ca cb cd ce cf};
+\end{verbatim}
+
+
+\subsection*{Positive Definite}
+
+\begin{verbatim}
+pd = zeros(1,5);
+for i=1:5
+pd(i) = all(eig(mats{i})>0);
+end
+\end{verbatim}
+
+
+\subsection*{Symmetric}
+
+\begin{verbatim}
+sy = zeros(1,5);
+for i=1:5
+    sy(i) = isequal(mats{i},mats{i}');
+end
+\end{verbatim}
+
+
+\subsection*{Answer}
+
+\begin{verbatim}
+valid_cov = sy.*pd;
+disp(valid_cov)
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}     0     0     1     0     1
+
+\end{verbatim} \color{black}
+    
 \end{document}
