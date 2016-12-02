@@ -1,10 +1,10 @@
 \documentclass[12pt]{article}
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
-\usepackage{bm}
 \usepackage{enumerate,listings,graphicx,epstopdf,siunitx}
+\usepackage{bm}
 \usepackage{color}
-\graphicspath{~/Documents/school/fall16/stat586/hw6}
+\graphicspath{~/Documents/school/fall16/stat586/hw8}
 \setcounter{secnumdepth}{0}
 
 \sloppy
@@ -161,5 +161,137 @@ Because $S_n$ is an unbaised estimator for $\mu$, it will converge to that mean 
 For this to be true, $E[X_i]$ must exist and $S_n$ must be an unbiased estimator of $\mu$. 
 
 \section{Problem 7.23}
+Since $X\sim u\left[ \frac{-1}{\sqrt{12}},\frac{1}{\sqrt{12}} \right]$, it has mean 0 and variance $\frac{1}{36}$.
+
+\begin{align*}
+  Z &= \frac{1}{\sqrt{n}} \sum_{i=1}^n \frac{X_i}{\sqrt{1/36}} \\
+  Z &= \frac{6}{\sqrt{n}} \sum_{i=1}^n X_i \\
+  S_n &= \sum_{i=1}^n X_i \\
+  Z &= \frac{6}{\sqrt{n}} S_n \\
+  Z &\sim N(0,1)
+\end{align*}
+
+\section{Problem 7.25}
+Since $X\sim binom(1,0.02)$, the mean will be $np = .02$ and the variance will be $np(p-1) = .0196$.
+\begin{align*}
+  Z_n &= \frac{1}{\sqrt{1023}} \sum_{i=1}^{1023} \frac{X_i-.02}{\sqrt{.0196}} \\
+  &= \frac{1}{\sqrt{1023}} \frac{S_n-(1023).02}{\sqrt{.0196}} \\
+  &= \frac{1}{\sqrt{1023}} \frac{30-(1023).02}{\sqrt{.0196}} \\
+  &= 2.131 \\
+  P(X<30) &= P(Z<2.131) = 1- Q(2.131) = 98.35 \%
+\end{align*}
+
+\section{Problem 7.27}
+\subsection{a.}
+\[
+  P\left( \sum_{k=1}^n X_k >y \right) \leq \frac{E\left[ \sum X \right]}{y} = \frac{n}{y}
+\]
+\subsection{b.}
+\[
+  P(\sum_{k=1}^n X_k > y) \leq P(\big|\sum_{k=1}^n X_k - n\big| > y-n) \leq \frac{Var(S_n)}{(y-n)^2} \leq \frac{n}{(y-n)^2}
+\]
+\subsection{c.}
+\[
+  P(\sum_{k=1}^n X_k > y) \leq \underset{s}{\text{min}} \ exp(-sy)M_Y(s) = exp(n-y)\left( \frac{y}{n} \right)^n
+\]
+\subsection{d.}
+\begin{align*}
+  \sum X_k &\sim N(n,n) \\
+  P(\sum X_k > y) &= Q\left( \frac{y-n}{\sqrt{n}} \right)
+\end{align*}
+\subsection{e.}
+\begin{align*}
+  y &= \sum_{k=1}^n X_k \sim Erlang \\
+  f_y(Y) &= \frac{y^{n-1}e^{-y}}{(n-1)!} \\
+  P(y>Y) &= \int_y^\infty \frac{y^{n-1}e^{-y}}{(n-1)!} \\
+\end{align*}
+\subsection{f.}
+\subsubsection{Log Space}
+\includegraphics [width=4in]{prob7_27_01.eps}
+\subsubsection{Linear Space}
+\includegraphics [width=4in]{prob7_27_02.eps}
+
+\section{Problem 7.29}
+Since $N\sim NBinom(m,p)$, the expected value of N is $m\left( \frac{1}{p} -1 \right)$. 
+\subsection{a.}
+\begin{align*}
+  E[\hat P_A] &= E\left[ \frac{m-1}{N-1} \right] \\
+  &= \frac{m-1}{E[N]-1} \\
+  &= \frac{m-1}{m\left( \frac{1}{p} -1 \right)-1} \\
+  &= \frac{m-1}{\frac{m}{p} -m -1} \neq p \\
+\end{align*}
+Thus the estimator is biased. 
+
+\subsection{b.}
+\begin{align*}
+  E[\hat P_A] &= E\left[ \frac{m}{N} \right] \\
+  &= \frac{m}{E[N]} \\
+  &= \frac{m}{m\left( \frac{1}{p} -1 \right)} \\
+  &= \frac{m}{\frac{m}{p} -m} \neq p \\
+\end{align*}
+Thus the estimator is biased. The estimator $\frac{m}{N+m}$ should work. 
+
+\section{Problem 7.31}
+\begin{align*}
+  \epsilon_a &= \frac{\sigma_X}{\sqrt{N_1}} Q^{-1}(.1/2) \\
+  \epsilon_a &= \frac{\sigma_X}{\sqrt{N_2}} Q^{-1}(.001/2) \\
+  \frac{\sigma_X}{\sqrt{N_1}} Q^{-1}(.1/2) &= \frac{\sigma_X}{\sqrt{N_2}} Q^{-1}(.001/2) \\
+  N_2 &= N_1\left( \frac{Q^{-1}(.001/2)}{Q^{-1}(.1/2)} \right)^2 \\
+  N_2 &= N_1\left( \frac{3.29}{1.64} \right)^2 \\
+  N_2 &= 4.024N_1
+\end{align*}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Problem 7.43
+   \item Set up RVs
+   \item Plots
+\end{itemize}
+
+
+\subsection*{Problem 7.43}
+
+\begin{verbatim}
+clear; close all; clc;
+\end{verbatim}
+
+
+\subsection*{Set up RVs}
+
+\begin{verbatim}
+N=1000000; % Set number of samples
+z=[0:0.1:20]; % define variable for horizontal axis
+w=randn(3,N).*4 + 3; % generate uniform random samples
+W = sqrt(w(1,:).^2 + w(2,:).^2 + w(3,:).^2);
+F=zeros(1,length(z)); % initialize CDF estimate
+for n=1:N % estimate CDF
+F=F+(W(n)<z);
+end
+F=F/N;
+\end{verbatim}
+
+
+\subsection*{Plots}
+
+\begin{par}
+CDF
+\end{par} \vspace{1em}
+\begin{verbatim}
+figure(1)
+plot(z,F) % plot results
+xlabel('x'); ylabel('F_X(x)')
+
+% PDF
+figure(2)
+fx = diff(F);
+plot(z(1:end-1),fx)
+xlabel('x'); ylabel('f_X(x)')
+\end{verbatim}
+
+\includegraphics [width=4in]{prob7_43_01.eps}
+
+\includegraphics [width=4in]{prob7_43_02.eps}
 
 \end{document}
