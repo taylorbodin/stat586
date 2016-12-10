@@ -1,0 +1,112 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{color}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Final Problem 3
+   \item Finding the transform and inverse transform
+   \item Jacobian
+   \item Find the Joint PDF f\_\{U,V,W\}(u,v,w)
+\end{itemize}
+
+
+\subsection*{Final Problem 3}
+
+\begin{verbatim}
+clear; close all; clc
+
+syms x y z u v w
+assume([x y z u v w],'real')
+assumeAlso([x y z u v w], 'positive')
+
+syms fx(x) fy(y) fz(z) fxyz(x,y,z)
+
+fx(x) = exp(-x);
+fy(y) = exp(-y);
+fz(z) = exp(-z);
+
+fxyz(x,y,z) = fx(x)*fy(y)*fz(z); % Joint PDF
+
+disp(fxyz)
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}exp(-x)*exp(-y)*exp(-z)
+symbolic function inputs: x, y, z
+ 
+\end{verbatim} \color{black}
+    
+
+\subsection*{Finding the transform and inverse transform}
+
+\begin{verbatim}
+[invx, invy, invz] = solve(u==x/(x+y) , v==(x+y)/(x+y+z) , w==x + y + z, [x,y,z]);
+
+disp([invx, invy, invz])
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}Warning: The solutions are valid under the following
+conditions: u < 1 & v < 1.
+ To include parameters and conditions in the solution,
+ specify the 'ReturnConditions' option. 
+[ u*v*w, v*w - u*v*w, w - v*w]
+ 
+\end{verbatim} \color{black}
+    
+
+\subsection*{Jacobian}
+
+\begin{verbatim}
+% u = x/(x+y);
+% v = (x+y)/(x+y+z);
+% w = x + y + z;
+
+J = [diff(invx,u) diff(invx,v) diff(invx,w); ...
+    diff(invy,u) diff(invy,v) diff(invy,w); ...
+    diff(invz,u) diff(invz,v) diff(invz,w)];
+
+detJ = det(J);
+
+disp(detJ)
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}v*w^2
+ 
+\end{verbatim} \color{black}
+    
+
+\subsection*{Find the Joint PDF f\_\{U,V,W\}(u,v,w)}
+
+\begin{verbatim}
+syms fuvw(u,v,w) fu(u) fv(v) fw(w)
+
+fuvw(u,v,w) = subs(fxyz*detJ,[x,y,z],[invx,invy,invz]); % x,y,z > 0
+
+fuvw = simplify(fuvw);
+
+disp(fuvw)
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}v*w^2*exp(-w)
+symbolic function inputs: u, v, w
+ 
+\end{verbatim} \color{black}
+    
+
+
+\end{document}
+    
