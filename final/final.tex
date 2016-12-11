@@ -61,7 +61,7 @@ y &= \frac{u-v}{2}
   f_V(v) &= \frac{1}{\sqrt{2\pi2\sigma^2}} exp\left( -\frac{(v-(\mu-\tau))^2}{2(2\sigma^2)} \right) \\
   V &\sim N((\mu-\tau),2\sigma^2)
 \end{align*}
-Because U and V are seperable they are independent.
+Because U and V are separable they are independent.
 
 \section{Problem 2}
 \subsection{Finding the parameters for \textbf{Y}}
@@ -140,7 +140,7 @@ The eigenvalues for $\Sigma_{\bm{X}}$ are: $1, 3 - 4\rho$. Thus for $\rho < 3/4$
 \begin{align*}
   J &= det\begin{bmatrix}
     \frac{\delta x}{\delta u} & \frac{\delta x}{\delta v} & \frac{\delta x}{\delta w} \\
-    \frac{\delta y}{\delta u} & \frac{\delta y}{\delta v} & \frac{\delta y}{\delta w}
+    \frac{\delta y}{\delta u} & \frac{\delta y}{\delta v} & \frac{\delta y}{\delta w} \\
     \frac{\delta z}{\delta u} & \frac{\delta z}{\delta v} & \frac{\delta z}{\delta w}
   \end{bmatrix} \\
   &= det\begin{bmatrix}
@@ -163,29 +163,183 @@ The eigenvalues for $\Sigma_{\bm{X}}$ are: $1, 3 - 4\rho$. Thus for $\rho < 3/4$
   f_W(w) &= \frac{w^2}{2}exp(-w) \\
   w &\sim \Gamma(3,1)
 \end{align*}
-Because U, V, W are seperable they are independent.
+Because U, V, W are separable they are independent.
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Final Problem 3
+   \item Finding the transform and inverse transform
+   \item Jacobian
+   \item Find the Joint PDF $f_{U,V,W}(u,v,w)$
+   \item Simulation
+\end{itemize}
+
+\subsection*{Final Problem 3}
+
+\begin{verbatim}
+clear; close all; clc
+
+syms x y z u v w
+assume([x y z u v w],'real')
+assumeAlso([x y z u v w], 'positive')
+
+syms fx(x) fy(y) fz(z) fxyz(x,y,z)
+
+fx(x) = exp(-x);
+fy(y) = exp(-y);
+fz(z) = exp(-z);
+
+fxyz(x,y,z) = fx(x)*fy(y)*fz(z); % Joint PDF
+
+disp(fxyz)
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}exp(-x)*exp(-y)*exp(-z)
+symbolic function inputs: x, y, z
+ 
+\end{verbatim} \color{black}
+    
+
+\subsection*{Finding the transform and inverse transform}
+
+\begin{verbatim}
+[invx, invy, invz] = solve(u==x/(x+y) , v==(x+y)/(x+y+z) , w==x + y + z, [x,y,z]);
+
+disp([invx, invy, invz])
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}Warning: The solutions are valid under the following
+conditions: u < 1 & v < 1.
+ To include parameters and conditions in the solution,
+ specify the 'ReturnConditions' option. 
+[ u*v*w, v*w - u*v*w, w - v*w]
+ 
+\end{verbatim} \color{black}
+    
+
+\subsection*{Jacobian}
+
+\begin{verbatim}
+% u = x/(x+y);
+% v = (x+y)/(x+y+z);
+% w = x + y + z;
+
+J = [diff(invx,u) diff(invx,v) diff(invx,w); ...
+    diff(invy,u) diff(invy,v) diff(invy,w); ...
+    diff(invz,u) diff(invz,v) diff(invz,w)];
+
+detJ = det(J);
+
+disp(detJ)
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}v*w^2
+ 
+\end{verbatim} \color{black}
+    
+
+\subsection*{Find the Joint PDF $f_{U,V,W}(u,v,w)$}
+
+\begin{verbatim}
+syms fuvw(u,v,w) fu(u) fv(v) fw(w)
+
+fuvw(u,v,w) = subs(fxyz*detJ,[x,y,z],[invx,invy,invz]); % x,y,z > 0
+
+fuvw = simplify(fuvw);
+
+disp(fuvw)
+\end{verbatim}
+
+        \color{lightgray} \begin{verbatim}v*w^2*exp(-w)
+symbolic function inputs: u, v, w
+ 
+\end{verbatim} \color{black}
+    
+
+\subsection*{Final Problem 3 Simulation}
+
+\begin{verbatim}
+clear; close all; clc
+
+X = random('Exponential', 1, [1e6,1]);
+Y = random('Exponential', 1, [1e6,1]);
+Z = random('Exponential', 1, [1e6,1]);
+
+U = X./(X+Y);
+V = (X+Y)./(X+Y+Z);
+W = X+Y+Z;
+
+w = 0:.01:30;
+v = 0:.01:1;
+
+pdV = fitdist(V,'Beta');
+pdfV = pdf(pdV,v);
+
+pdW = fitdist(W,'Gamma');
+pdfW = pdf(pdW,w);
+
+figure(1)
+histogram(U,'Normalization','PDF');
+
+figure(2)
+hold on
+histogram(V,'Normalization','PDF');
+plot(v,pdfV,'LineWidth',2);
+hold off
+
+figure(3)
+hold on
+histogram(W,'Normalization','PDF');
+plot(w,pdfW,'LineWidth',2);
+hold off
+
+%plot(pdU);
+\end{verbatim}
+
+\includegraphics [width=\textwidth]{prob3_sim_01.eps}
+
+\includegraphics [width=\textwidth]{prob3_sim_02.eps}
+
+\includegraphics [width=\textwidth]{prob3_sim_03.eps}
 
 \section{Problem 4}
 \subsection{Results}
 \begin{table}[h]
 \centering
-\caption{Results}
+\caption{Descriptive Statistics for the Sample Means}
 \label{p4_data}
 \begin{tabular}{|l|l|l|l|l|l|l|l|}
   \hline 
 n  & mean & variance & skewness & 0.025 quantile & 0.975 quantile & lower CI & upper CI \\
 \hline
-10 &      &          &          &                &                &          &          \\
+10 &1.0123& 0.10759  & 0.75211 & 0.4838 & 1.7838 & 0.30365 & 1.7209 \\
 \hline
-20 &      &          &          &                &                &          &          \\
+20 &1.0013& 0.051844 & 0.40566 & 0.60047 & 1.5232 & 0.50026 & 1.5024 \\
 \hline
-40 &      &          &          &                &                &          &          \\
+40 &1.0012& 0.025433 & 0.24374 & 0.71074 & 1.3243 & 0.64689 & 1.3555 \\
 \hline
-80 &      &          &          &                &                &          &         \\
+80 &1.0035& 0.013491 & 0.19314  & 0.7883 & 1.2431 & 0.75293 & 1.254 \\
 \hline
 \end{tabular}
 \end{table}
 \subsection{Discussion}
+The Central Limit Theorem requires that a sample be sufficiently large for the distribution of the sample mean to be well approximated 
+by the normal distribution. What constitutes a sufficiently large sample depends heavily on the shape and, more specifically,
+the skewness of the population distribution. The exponential distribution used in this example is highly skewed which
+means more samples will be needed to closely approximate the distribution of the sample means with the normal distribution than if the
+population distribution more closely resembled a normal distribution itself. This can be seen particularly well by observing the skewness
+of the sample means. As the number of samples in each group gets large the skewness asymptotically approaches zero, which is the value of
+skewness for a normal distribution. The CLT clearly doesn't hold for samples of size 10. The lower confidence interval is much too
+conservative and the upper confidence interval is anti-conservative. The CLT is a better approximation for samples of size 20, but the
+upper bound of the confidence interval is still anti-conservative. The CLT begins to hold up for samples of size 40. The quantiles are
+closely approximated by the confidence intervals predicted by the CLT and both are conservative estimates. Obviously the CLT holds for
+sample sizes of 80, but what's disconcerting is how little the skewness decreases compared to the value at 40 samples. Since this 
+value controls just how good an approximation the CLT provides it's unfortunate that it will take a huge number of additional 
+samples to make the approximation better. This is illustrated better by the figures below. Additional sample sizes were explored 
+that show the small effect large samples have on skewness for highly skewed distributions. Overall, the CLT is a great tool, but 
+care must be taken to ensure that the approximation holds up in practice.
 \subsection*{Contents}
 
 \begin{itemize}
@@ -213,7 +367,7 @@ ci = .975;
 \end{verbatim}
 
 
-\subsection*{A. Generate the population of Gamma RVs}
+\subsection*{A: Generate the population of Gamma RVs}
 
 \begin{verbatim}
 pop = random('Gamma',1,1,[1,N]);
@@ -261,7 +415,7 @@ legend('Gamma(1,1) PDF', 'Lower Quantile (.025)', 'Upper Quantile (.975)');
 \includegraphics [width=\textwidth]{prob4_01.eps}
 
 
-\subsection*{B Part 1: Create Sample Distributions of Size n}
+\subsection*{B: Create Sample Distributions of Size n}
 
 \begin{verbatim}
 for k=1:length(n)
@@ -283,7 +437,10 @@ s_stat_str = {['\mu = ', num2str(mean(s_mu))];
     ['\sigma^2 = ' num2str(mu_var)];
     ['Skew = ' num2str(mu_skew)];
     ['Upper Quantile: ' num2str(s_quant_upper)];
-    ['Lower Quantile: ' num2str(s_quant_lower)]};
+    ['Lower Quantile: ' num2str(s_quant_lower)];
+    ['Upper Confidence Interval: ' num2str(ci_upper)];
+    ['Lower Confidence Interval: ' num2str(ci_lower)]};
+
 
 % Central Limit Theorem Approximation
 cl_pd = makedist('Normal', 'mu', mu, 'sigma', var/sqrt(n(k)));
