@@ -111,7 +111,9 @@ s_stat_str = {['\mu = ', num2str(mean(s_mu))];
     ['\sigma^2 = ' num2str(mu_var)];
     ['Skew = ' num2str(mu_skew)];
     ['Upper Quantile: ' num2str(s_quant_upper)];
-    ['Lower Quantile: ' num2str(s_quant_lower)]};
+    ['Lower Quantile: ' num2str(s_quant_lower)];
+    ['Upper Confidence Interval: ' num2str(ci_upper)];
+    ['Lower Confidence Interval: ' num2str(ci_lower)]};
 
 % Central Limit Theorem Approximation
 cl_pd = makedist('Normal', 'mu', mu, 'sigma', var/sqrt(n(k)));
